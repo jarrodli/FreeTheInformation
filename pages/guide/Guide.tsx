@@ -6,7 +6,7 @@ import Step1 from "./components/steps/Step1";
 export const buttonCss =
     "border-2 py-9 px-9 border-white hover:bg-gray-100 hover:bg-opacity-20 rounded-full bg-no-repeat bg-contain disabled:opacity-50";
 export const textCss =
-    "text-xl md:text-2xl px-8 border-2 p-4 border-white hover:bg-gray-100 hover:text-white hover:bg-opacity-20 font-inter";
+    "text-xl md:text-2xl px-8 p-4 text-white hover:bg-gray-100 hover:text-white hover:bg-opacity-20 font-inter";
 
 interface Props {}
 

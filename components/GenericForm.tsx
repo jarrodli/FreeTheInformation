@@ -15,7 +15,7 @@ export const formTextCss =
 
 const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
     const initialValues = formValues.map((val) => {
-        return { [val.formValue.replaceAll(' ', '-')]: '' }
+        return { [val.formValue]: '' }
     })
     return (
         <Formik
@@ -40,14 +40,16 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                 <form onSubmit={handleSubmit} className="flex flex-col ">
                     {
                         formValues.map((formEntry, idx) => {
+                            if (!formEntry.formValue) return
+                            if (formEntry.if && values[formEntry.if.formValue] !== formEntry.if.type) return
                             switch (formEntry.type) {
                                 case 'input': {
                                     return (
-                                        <div key={idx} className="py-5:S">
+                                        <div key={idx} className="py-5">
                                             <label className={formTextCss}
                                                    htmlFor={formEntry.formValue}>{formEntry.displayValue}</label>
                                             <Field
-                                                className="block w-3/4 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-9 my-3"
+                                                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-10 my-3"
                                                 type="text"
                                                 name={formEntry.formValue}
                                                 onChange={handleChange}
@@ -62,7 +64,7 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                                 }
                                 case 'textarea': {
                                     return (
-                                        <div key={idx} className="py-5:S">
+                                        <div key={idx} className="py-5">
                                             <label className={formTextCss}
                                                    htmlFor={formEntry.formValue}>{formEntry.displayValue}</label>
                                             <textarea
@@ -71,7 +73,7 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                                                 name={formEntry.formValue}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
-                                                value={values[formEntry.formValue]}
+                                                value={values[formEntry.formValue]} // TODO: split results based on word count
                                             />
                                             {errors[formEntry.formValue]
                                              && touched[formEntry.formValue]
@@ -85,7 +87,7 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                                         return
                                     }
                                     return (
-                                        <div role="group" aria-labelledby="checkbox-group" className="flex flex-col"
+                                        <div role="group" aria-labelledby="checkbox-group" className="flex flex-col py-5"
                                              key={idx}>
                                             <label className={formTextCss}
                                                    htmlFor={formEntry.formValue}>{formEntry.displayValue}</label>
@@ -96,6 +98,7 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                                                             <label className={formTextCss}>
                                                                 <input type="radio" name={formEntry.formValue}
                                                                        value={entry}
+                                                                       onClick={handleChange}
                                                                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mr-5"/>
                                                                 {entry}
                                                             </label>

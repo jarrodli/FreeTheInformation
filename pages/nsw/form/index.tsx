@@ -1,8 +1,9 @@
-import { Field, Formik, FormikValues }                   from 'formik'
+import { FormikValues }                                  from 'formik'
 import { promises as fs }                                from 'fs'
 import { PDFDocument, PDFForm }                          from 'pdf-lib'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import FOIForm                                           from '../../../components/GenericForm'
+import { textCss }                                       from '../../guide/Guide'
 
 interface Props {
     data: string
@@ -14,15 +15,15 @@ export interface Form {
     type: string,
     options?: string[],
     validation?: string,
-    if?: string
+    if?:  { formValue: string, type: string }
 }
 
 export const formValues: Form[] = [
     {
-        displayValue: 'Agency that you are looking to get information from',
+        displayValue: 'Agency that you are applying to',
         formValue   : 'Agency',
         type        : 'input',
-        validation  : 'agency'
+        validation  : 'agency' // TODO: autocomplete
     },
     { displayValue: 'First Name', formValue: 'Other names', type: 'input' },
     { displayValue: 'Last Name', formValue: 'Surname', type: 'input' },
@@ -37,7 +38,12 @@ export const formValues: Form[] = [
         formValue   : 'Special needs',
         type        : 'input'
     },
-    { displayValue: 'Do you agree to get correspondence in regards to this request?', formValue: 'Agree to correspondence', type: 'dropdown', options: ['Yes', 'No'] },
+    {
+        displayValue: 'Do you agree to get correspondence in regards to this request?',
+        formValue   : 'Agree to correspondence',
+        type        : 'dropdown',
+        options     : ['Yes', 'No']
+    },
     {
         displayValue: 'You are required to provide some proof of identity.',
         formValue   : 'Proof of Identity',
@@ -66,7 +72,7 @@ export const formValues: Form[] = [
         displayValue: 'Please provide specify how you would like access to these documents',
         formValue   : 'Specify',
         type        : 'input',
-        if          : 'Access in another way please specify'
+        if          : { formValue: 'AccessMethod', type: 'Access in another way please specify' }
     },
     {
         displayValue: 'A $30 payment is required. How would you like to pay for this?',
@@ -80,7 +86,7 @@ export const formValues: Form[] = [
         type        : 'dropdown',
         options     : ['Yes', 'No']
     },
-    { displayValue: 'Disclosure log', formValue: 'Disclosure Log', type: 'dropdown', options: ['Yes 3', 'No 3'] },
+    { displayValue: 'Disclosure log', formValue: 'Disclosure Log', type: 'dropdown', options: ['Yes 3', 'No 3'] }, // TODO: figure out what this actually maps to
     {
         displayValue: 'Are you suffering from financial hardship?',
         formValue   : 'Financial Hardship',
@@ -108,6 +114,8 @@ const NSWForm: FunctionComponent<Props> = ({ data }) => {
             pdfForm = pdfDoc.getForm()
             const fields = pdfForm.getFields()
             const fieldNames = fields.map((field) => field.getName())
+            // console.log(fields)
+            // console.log(fieldNames)
         }
 
         processForm()
@@ -115,8 +123,35 @@ const NSWForm: FunctionComponent<Props> = ({ data }) => {
 
     const handleSubmit = async (values: FormikValues) => {
         formValues.forEach((formEntry) => {
-            if (formEntry.type !== 'input') return
-            pdfForm.getTextField(formEntry.formValue).setText(values[formEntry.formValue])
+            if (!formEntry.formValue) return
+            switch (formEntry.type) {
+                case 'textarea':
+                case 'input': {
+                    if (!values[formEntry.formValue]) return
+                    if (formEntry.formValue === 'Application') {
+                        pdfForm.getTextField('Application 1').setText(values[formEntry.formValue])
+                        break
+                    }
+                    if (formEntry.formValue === 'Special benefit to the public' && values[formEntry.formValue]) {
+                        pdfForm.getCheckBox('Special benefit to the public').check()
+                        pdfForm.getTextField('Reason').setText(values[formEntry.formValue])
+                        break
+                    }
+                    pdfForm.getTextField(formEntry.formValue).setText(values[formEntry.formValue])
+                    break
+                }
+                case 'dropdown': {
+                    if (!formEntry.options) return
+                    formEntry.options.forEach((option) => {
+                        if (values[formEntry.formValue] === option) pdfForm.getCheckBox(values[formEntry.formValue]).check()
+                    })
+                    break
+                }
+                case 'file':{
+                    break
+                }
+            }
+
         })
         const pdfBytes = await pdfDoc.save()
         const docUrl = URL.createObjectURL(
@@ -127,7 +162,10 @@ const NSWForm: FunctionComponent<Props> = ({ data }) => {
 
     return (
         <div className="min-h-screen w-screen bg-midnights bg-fixed md:bg-background md:bg-no-repeat md:bg-cover">
-            <div className="flex flex-row items-center justify-center p-20 max-w-3/4">
+            <div className="flex flex-col items-center justify-center p-20 max-w-3/4">
+                {/*<div>*/}
+                {/*    <p className={textCss}>FOI requests in NSW can be submitted via a form</p>*/}
+                {/*</div>*/}
                 <FOIForm formValues={formValues} handleOnSubmit={handleSubmit}/>
                 {
                     downloadUrl && <a href={downloadUrl}>Download</a>
