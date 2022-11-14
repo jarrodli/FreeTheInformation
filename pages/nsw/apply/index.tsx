@@ -80,17 +80,9 @@ export const formValues: Form[] = [
         formValue   : '',
         type        : 'header'
     },
-    { //TODO: maybe move out to clicky thing
-        displayValue: 'Have you checked if the information you are looking for is already available online?',
-        formValue   : 'ignore_application',
-        type        : 'dropdown',
-        options     : [{ formValue: 'Yes', displayValue: 'Yes' }, { formValue: 'No', displayValue: 'No' }],
-        caption     : 'Please check on the agency\'s website that the information you are looking for is not already available.'
-    },
     {
         displayValue: 'What information are you looking for?', formValue: 'Application', type: 'textarea',
         caption     : 'Please provide as much information as possible. This includes things like date ranges, where the documents may be held or the subject matter the documents relate to.',
-        if          : { formValue: 'ignore_application', type: 'Yes' }
     },
     {
         displayValue: 'Are you seeking personal information?',
@@ -148,7 +140,7 @@ export const formValues: Form[] = [
     },
     {
         displayValue: 'Do you consent to this information being released on the Information and Privacy Commissioner\'s website?',
-        caption     : 'Details about this application may be recorded and published on the Information and Privacy Commission website. You may object to this.',
+        caption     : 'Details about this application may be recorded and published on the Information and Privacy Commission website. You may object to this. For an example of what a disclosure log looks like, see: https://www.ipc.nsw.gov.au/sites/default/files/2022-03/IPC_Disclosure_Log_March%202022.pdf',
         formValue   : 'Disclosure Log',
         type        : 'dropdown',
         options     : [{ formValue: 'Yes 3', displayValue: 'Yes' }, { formValue: 'No 3', displayValue: 'No' }]
