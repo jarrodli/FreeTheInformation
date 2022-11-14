@@ -4,6 +4,7 @@ import { PDFDocument, PDFForm }                          from 'pdf-lib'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import FOIForm                                           from '../../../components/GenericForm'
 import PdfViewer                                         from '../../../components/PdfViewer'
+
 interface Props {
     data: string
 }
@@ -12,7 +13,7 @@ export interface Form {
     displayValue: string,
     formValue: string,
     type: string,
-    options?: string[],
+    options?: { formValue: string, displayValue: string }[],
     validation?: string,
     caption?: string,
     if?: { formValue: string, type: string }
@@ -33,7 +34,17 @@ export const formValues: Form[] = [
     },
     { displayValue: 'First Name', formValue: 'Other names', type: 'input' },
     { displayValue: 'Last Name', formValue: 'Surname', type: 'input' },
-    { displayValue: 'Title', formValue: 'Title', type: 'dropdown', options: ['Mr', 'Mrs', 'Ms', 'Dr'] },
+    {
+        displayValue: 'Title',
+        formValue   : 'Title',
+        type        : 'dropdown',
+        options     : [
+            { formValue: 'Mr', displayValue: 'Mr' }, {
+                formValue   : 'Mrs',
+                displayValue: 'Mrs'
+            }, { formValue: 'Ms', displayValue: 'Ms' }, { formValue: 'Dr', displayValue: 'Dr' }
+        ]
+    },
     { displayValue: 'Address', formValue: 'Postal address', type: 'input' },
     { displayValue: 'Postcode', formValue: 'Postcode', type: 'input' },
     { displayValue: 'Contact Number', formValue: 'Daytime telephone', type: 'input' },
@@ -48,13 +59,20 @@ export const formValues: Form[] = [
         displayValue: 'Do you agree to get correspondence in regards to this request?',
         formValue   : 'Agree to correspondence',
         type        : 'dropdown',
-        options     : ['Yes', 'No']
+        options     : [{ formValue: 'Yes', displayValue: 'Yes' }, { formValue: 'No', displayValue: 'No' }]
     },
     {
         displayValue: 'You are required to provide some proof of identity.',
         formValue   : 'Proof of Identity',
         type        : 'file',
-        options     : ['Australian drivers licence', 'Current Australian passport', 'Other proof of signature and current address details']
+        options     : [
+            { formValue: 'Australian drivers licence', displayValue: 'Australian Drivers Licence' },
+            { formValue: 'Current Australian passport', displayValue: 'Current Australian passport' },
+            {
+                formValue   : 'Other proof of signature and current address details',
+                displayValue: 'Other proof of signature and current address details'
+            }
+        ]
     },
     {
         displayValue: 'Information requested',
@@ -65,7 +83,7 @@ export const formValues: Form[] = [
         displayValue: 'Have you checked if the information you are looking for is already available online?',
         formValue   : 'ignore_application',
         type        : 'dropdown',
-        options     : ['Yes', 'No'],
+        options     : [{ formValue: 'Yes', displayValue: 'Yes' }, { formValue: 'No', displayValue: 'No' }],
         caption     : 'Please check on the agency\'s website that the information you are looking for is not already available.'
     },
     {
@@ -76,7 +94,12 @@ export const formValues: Form[] = [
         displayValue: 'Are you seeking personal information?',
         formValue   : 'Personal information',
         type        : 'dropdown',
-        options     : ['Yes', 'No']
+        options     : [{ formValue: 'Yes', displayValue: 'Yes' }, { formValue: 'No', displayValue: 'No' }] // TODO:
+                                                                                                           // check
+                                                                                                           // form
+                                                                                                           // values
+                                                                                                           // are
+                                                                                                           // correct
     },
     {
         displayValue: 'Have you made an application for information at another agency requesting the same information? If yes, please enter the agency below.',
@@ -87,7 +110,11 @@ export const formValues: Form[] = [
         displayValue: 'How would you like to access these documents?',
         formValue   : 'AccessMethod',
         type        : 'dropdown',
-        options     : ['Inspect the documents', 'A copy of the documents', 'Access in another way please specify']
+        options     : [
+            { formValue: 'Inspect the documents', displayValue: 'Inspect the documents' },
+            { formValue: 'A copy of the documents', displayValue: 'A copy of the documents' },
+            { formValue: 'Access in another way please specify', displayValue: 'Access in another way please specify' }
+        ]
     },
     {
         displayValue: 'Please specify how you would like access to these documents',
@@ -99,42 +126,69 @@ export const formValues: Form[] = [
         displayValue: 'A $30 payment is required. How would you like to pay for this?',
         formValue   : 'Payment',
         type        : 'dropdown',
-        options     : ['Cash', 'Cheque', 'Money order']
+        options     : [
+            { formValue: 'Cash', displayValue: 'Cash' },
+            { formValue: 'Cheque', displayValue: 'Cheque' },
+            { formValue: 'Money order', displayValue: 'Money order' }
+        ]
     },
     {
         displayValue: 'Third party',
         caption     : 'Under section 54 of the GIPA Act, if the information you are requesting contains information about another person, business or agency, the agency may be required to consult with third parties before deciding your application. The purpose of this consultation is for the agency to determine whether the third party has an objection to disclosure of some or all of the information being requested.',
         formValue   : 'Third parties',
         type        : 'dropdown',
-        options     : ['Yes', 'No']
+        options     : [{ formValue: 'Yes', displayValue: 'Yes' }, { formValue: 'No', displayValue: 'No' }] // TODO:
+        // check
+        // form
+        // values
+        // are
+        // correct
     },
     {
         displayValue: 'Do you consent to this information being released on the Information and Privacy Commissioner\'s website?',
         caption     : 'Details about this application may be recorded and published on the Information and Privacy Commission website. You may object to this.',
         formValue   : 'Disclosure Log',
         type        : 'dropdown',
-        options     : ['Yes 3', 'No 3']
+        options     : [{ formValue: 'Yes 3', displayValue: 'Yes' }, { formValue: 'No 3', displayValue: 'No' }]
     }, // what does this map to?
     {
         displayValue: 'Are you suffering from financial hardship?',
         caption     : 'If you are suffering financial, you may be entitled ot a 50% reduction in your processing charge ($30/hour). Please attach proof, such as your pensioners card or a Centrelink card.',
         formValue   : 'Financial Hardship',
         type        : 'dropdown',
-        options     : ['Yes 3', 'No 3']
+        options     : [{ formValue: 'Yes 3', displayValue: 'Yes' }, { formValue: 'No 3', displayValue: 'No' }]
     },
     {
         displayValue: 'Does this FOI request provide special benefit to the public?',
         caption     : 'If your FOI request provides special benefit to the public, you may be entitled ot a 50% reduction in your processing charge ($30/hour).',
         formValue   : 'Special benefit to the public',
         type        : 'dropdown',
-        options     : [
-            'My application refers to public health and safety;\n', //FROM Shoebridge v Forestry Corporation [2016]
-                                                                    // NSWCATAD 93 (Shoebridge) at 23
-            'My application refers to the use of public funds;\n',
-            'My application seeks to examine proper record keeping and legislative compliance generally by the agency in the exercise of its functions;\n',
-            'My application seeks to examine the existence of a special interest group and the benefits of accountability and transparency of decision-making by government, in particular Members of Parliament; and\n',
-            'My application seeks to examine the need to ensure that citizens have sufficient information to enable them to actively participate and contribute to consideration of relevant issues through submissions or enquiry.',
-            'Other'
+        options     : [//FROM Shoebridge v Forestry Corporation [2016]
+            // NSWCATAD 93 (Shoebridge) at 23
+            {
+                formValue   : 'My application refers to public health and safety;\n',
+                displayValue: 'My application refers to public health and safety;\n'
+            },
+            {
+                formValue   : 'My application refers to the use of public funds;\n',
+                displayValue: 'My application refers to the use of public funds;\n'
+            },
+            {
+                formValue   : 'My application seeks to examine proper record keeping and legislative compliance generally by the agency in the exercise of its functions;\n',
+                displayValue: 'My application seeks to examine proper record keeping and legislative compliance generally by the agency in the exercise of its functions;\n'
+            },
+            {
+                formValue   : 'My application seeks to examine the existence of a special interest group and the benefits of accountability and transparency of decision-making by government, in particular Members of Parliament; and\n',
+                displayValue: 'My application seeks to examine the existence of a special interest group and the benefits of accountability and transparency of decision-making by government, in particular Members of Parliament; and\n'
+            },
+            {
+                formValue   : 'My application seeks to examine the need to ensure that citizens have sufficient information to enable them to actively participate and contribute to consideration of relevant issues through submissions or enquiry.',
+                displayValue: 'My application seeks to examine the need to ensure that citizens have sufficient information to enable them to actively participate and contribute to consideration of relevant issues through submissions or enquiry.'
+            },
+            {
+                formValue   : 'Other',
+                displayValue: 'Other'
+            }
         ]
     },
     {
@@ -169,7 +223,7 @@ const NSWForm: FunctionComponent<Props> = ({ data }) => {
 
     const handleSubmit = async (values: FormikValues) => {
         formValues.forEach((formEntry) => {
-            if (!formEntry.formValue) {
+            if (!formEntry.formValue || formEntry.formValue.includes('ignore_')) {
                 return
             }
             switch (formEntry.type) {
@@ -205,7 +259,7 @@ const NSWForm: FunctionComponent<Props> = ({ data }) => {
                         return
                     }
                     formEntry.options.forEach((option) => {
-                        if (values[formEntry.formValue] === option) {
+                        if (values[formEntry.formValue] === option.formValue) {
                             pdfForm.getCheckBox(values[formEntry.formValue])
                                 .check()
                         }
@@ -232,8 +286,10 @@ const NSWForm: FunctionComponent<Props> = ({ data }) => {
             {/*    <p className={textCss}>To make a FOI request </p>*/}
             {/*</div>*/}
             {
-                downloadUrl && pdfFile ? <PdfViewer pdfDownloadUrl={downloadUrl} pdfFile={pdfFile}/> : <FOIForm formValues={formValues}
-                                                                                   handleOnSubmit={handleSubmit}/>
+                downloadUrl && pdfFile ? <PdfViewer pdfDownloadUrl={downloadUrl} pdfFile={pdfFile}/> :
+                <FOIForm
+                    formValues={formValues}
+                    handleOnSubmit={handleSubmit}/>
             }
         </div>
     )

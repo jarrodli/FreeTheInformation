@@ -1,6 +1,6 @@
 import { Field, Formik, FormikValues } from 'formik'
-import React, { FunctionComponent }    from 'react'
-import { Form }                        from '../pages/nsw/form'
+import React, { FunctionComponent } from 'react'
+import { Form }                     from '../pages/nsw/apply'
 
 interface Props {
     formValues: Form[]
@@ -121,10 +121,10 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                                                         return (
                                                             <label className={formTextCss}>
                                                                 <input type="radio" name={formEntry.formValue}
-                                                                       value={entry}
+                                                                       value={entry.formValue}
                                                                        onClick={handleChange}
                                                                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mr-5"/>
-                                                                {entry}
+                                                                {entry.displayValue}
                                                             </label>
                                                         )
                                                     })
