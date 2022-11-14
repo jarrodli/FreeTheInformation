@@ -1,6 +1,6 @@
 const navigation = [
-    { name: 'Make a FOI Request in NSW', href: '/nsw/apply' },
-    { name: 'Apply for a FOI Request Review in NSW', href: '/nsw/review' },
+    { name: 'Make an FOI Request in NSW', href: '/nsw/apply' },
+    { name: 'Apply for an FOI Request Review in NSW', href: '/nsw/review' },
     { name: 'Docs', href: '#' },
     { name: 'Company', href: '#' }
 ]

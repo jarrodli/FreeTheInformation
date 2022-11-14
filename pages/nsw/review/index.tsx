@@ -188,9 +188,9 @@ const NSWReviewForm: FunctionComponent<Props> = ({ data }) => {
             }
             pdfDoc = await PDFDocument.load(data)
             pdfForm = pdfDoc.getForm()
-            const fields = pdfForm.getFields()
-            const fieldNames = fields.map((field) => field.getName())
-            console.log(fieldNames)
+            // const fields = pdfForm.getFields()
+            // const fieldNames = fields.map((field) => field.getName())
+            // console.log(fieldNames)
         }
 
         processForm()
@@ -238,19 +238,29 @@ const NSWReviewForm: FunctionComponent<Props> = ({ data }) => {
         setDownloadUrl(docUrl)
     }
 
+    const completedFormText = () => {
+        return <p className={textCss}>
+            A completed FOI review request form has been generated. Please sign it, attach any relevant payment
+            information, and email it to <a href={'mailto:ipcinfo@ipc.nsw.gov.au'}>ipcinfo@ipc.nsw.gov.au</a>
+        </p>
+    }
+
 
     return (
         <div className="p-20 max-w-4xl">
-            <div>
-                <p className={textCss}>
-                    You can make a review of a FOI request
-                </p>
-            </div>
             {
-                downloadUrl && pdfFile ? <PdfViewer pdfDownloadUrl={downloadUrl} pdfFile={pdfFile}/> :
-                <FOIForm
-                    formValues={formValues}
-                    handleOnSubmit={handleSubmit}/>
+                downloadUrl && pdfFile ? <PdfViewer pdfDownloadUrl={downloadUrl} pdfFile={pdfFile}
+                                                    completedFormText={completedFormText}/> :
+                <div>
+                    <div>
+                        <p className={textCss}>
+
+                        </p>
+                    </div>
+                    <FOIForm
+                        formValues={formValues}
+                        handleOnSubmit={handleSubmit}/>
+                </div>
             }
         </div>
 

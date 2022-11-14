@@ -4,10 +4,11 @@ import { textCss }                     from '../pages/guide/Guide'
 
 interface Props {
     pdfDownloadUrl: string,
-    pdfFile: Uint8Array
+    pdfFile: Uint8Array,
+    completedFormText(): JSX.Element
 }
 
-const PdfViewer: FunctionComponent<Props> = ({pdfDownloadUrl, pdfFile}) => {
+const PdfViewer: FunctionComponent<Props> = ({pdfDownloadUrl, pdfFile, completedFormText}) => {
     console.log(pdfFile)
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
@@ -21,9 +22,7 @@ const PdfViewer: FunctionComponent<Props> = ({pdfDownloadUrl, pdfFile}) => {
     return (
         <div className='flex flex-col items-center h-screen'>
             <div>
-                <p className={textCss}>
-                    A completed FOI request form has been generated. Please sign it, attach any relevant payment information, and send it to the relevant agency.
-                </p>
+                {completedFormText()}
             </div>
             <div className='mt-10'>
                 <button

@@ -4,6 +4,7 @@ import { PDFDocument, PDFForm }                          from 'pdf-lib'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import FOIForm                                           from '../../../components/GenericForm'
 import PdfViewer                                         from '../../../components/PdfViewer'
+import { textCss }                                       from '../../guide/Guide'
 
 interface Props {
     data: string
@@ -88,6 +89,7 @@ export const formValues: Form[] = [
     },
     {
         displayValue: 'What information are you looking for?', formValue: 'Application', type: 'textarea',
+        caption     : 'Please provide as much information as possible. This includes things like date ranges, where the documents may be held or the subject matter the documents relate to.',
         if          : { formValue: 'ignore_application', type: 'Yes' }
     },
     {
@@ -280,13 +282,20 @@ const NSWForm: FunctionComponent<Props> = ({ data }) => {
         setDownloadUrl(docUrl)
     }
 
+    const completedFormText = () => {
+        return <p className={textCss}>
+            A completed FOI request form has been generated. Please sign it, attach any relevant payment information, and send it to the relevant agency.
+        </p>
+    }
+
+
     return (
         <div className="p-20 max-w-4xl">
             {/*<div className="">*/}
-            {/*    <p className={textCss}>To make a FOI request </p>*/}
+            {/*    <p className={textCss}>To make an FOI request </p>*/}
             {/*</div>*/}
             {
-                downloadUrl && pdfFile ? <PdfViewer pdfDownloadUrl={downloadUrl} pdfFile={pdfFile}/> :
+                downloadUrl && pdfFile ? <PdfViewer pdfDownloadUrl={downloadUrl} pdfFile={pdfFile} completedFormText={completedFormText}/> :
                 <FOIForm
                     formValues={formValues}
                     handleOnSubmit={handleSubmit}/>
