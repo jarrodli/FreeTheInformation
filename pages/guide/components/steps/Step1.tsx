@@ -15,7 +15,7 @@ const Step1: FunctionComponent<Props> = ({
             <div className="space-x-8 space-y-8">
                 <button
                     onClick={() => handleSetJurisdiction("NSW")}
-                    className={`${textCss} ${
+                    className={`border-2 ${textCss} ${
                         jurisdiction === "NSW"
                             ? "bg-white text-midnights hover:bg-opacity-70"
                             : null
@@ -25,7 +25,7 @@ const Step1: FunctionComponent<Props> = ({
                 </button>
                 <button
                     onClick={() => handleSetJurisdiction("VIC")}
-                    className={`${textCss} ${
+                    className={`border-2 ${textCss} ${
                         jurisdiction === "VIC"
                             ? "bg-white text-midnights hover:bg-opacity-70"
                             : null
@@ -35,7 +35,7 @@ const Step1: FunctionComponent<Props> = ({
                 </button>
                 <button
                     onClick={() => handleSetJurisdiction("QLD")}
-                    className={`${textCss} ${
+                    className={`border-2 ${textCss} ${
                         jurisdiction === "QLD"
                             ? "bg-white text-midnights hover:bg-opacity-70"
                             : null

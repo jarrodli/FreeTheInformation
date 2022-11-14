@@ -15,7 +15,7 @@ module.exports = {
       },
       colors: {
         ...colors,
-        "midnights": "#001220"
+        "midnights": "#0A3260"
       },
       backgroundImage: {
         background: "url('/background.svg')",
