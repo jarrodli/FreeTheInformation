@@ -154,7 +154,7 @@ export const formValues: Form[] = [
     },
     {
         displayValue: 'Does this FOI request provide special benefit to the public?',
-        caption     : 'If your FOI request provides special benefit to the public, you may be entitled ot a 50% reduction in your processing charge ($30/hour).',
+        caption     : 'If your FOI request provides special benefit to the public, you may be entitled to a 50% reduction in your processing charge ($30/hour).',
         formValue   : 'Special benefit to the public',
         type        : 'dropdown',
         options     : [//FROM Shoebridge v Forestry Corporation [2016]
