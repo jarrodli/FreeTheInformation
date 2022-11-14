@@ -11,6 +11,9 @@ interface Props {
 export const formTextCss =
                  'text-xl md:text-2xl text-white hover:text-white hover:bg-opacity-20 font-inter'
 
+export const captionTextCss =
+                 'text-sm md:text-md text-white hover:text-white hover:bg-opacity-20 font-inter'
+
 //TODO: add autocomplete api for address? https://developers.google.com/maps/documentation/javascript/place-autocomplete
 
 const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
@@ -40,14 +43,28 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                 <form onSubmit={handleSubmit} className="flex flex-col ">
                     {
                         formValues.map((formEntry, idx) => {
-                            if (!formEntry.formValue) return
-                            if (formEntry.if && values[formEntry.if.formValue] !== formEntry.if.type) return
+                            if (formEntry.type === 'header') {
+                                return (
+                                    <div>
+                                        <h2 className={`${formTextCss} text-center`}>{formEntry.displayValue}</h2>
+                                    </div>
+                                )
+                            }
+                            if (!formEntry.formValue) {
+                                return
+                            }
+                            if (formEntry.if && values[formEntry.if.formValue] !== formEntry.if.type) {
+                                return
+                            }
                             switch (formEntry.type) {
                                 case 'input': {
                                     return (
                                         <div key={idx} className="py-5">
                                             <label className={formTextCss}
                                                    htmlFor={formEntry.formValue}>{formEntry.displayValue}</label>
+                                            {
+                                                formEntry.caption && <p className={captionTextCss}>{formEntry.caption}</p>
+                                            }
                                             <Field
                                                 className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-10 my-3"
                                                 type="text"
@@ -67,30 +84,37 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                                         <div key={idx} className="py-5">
                                             <label className={formTextCss}
                                                    htmlFor={formEntry.formValue}>{formEntry.displayValue}</label>
+                                            {
+                                                formEntry.caption && <p className={captionTextCss}>{formEntry.caption}</p>
+                                            }
                                             <textarea
-                                                className="block w-3/4 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm my-3"
+                                                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm my-3"
                                                 rows={6}
                                                 name={formEntry.formValue}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
-                                                value={values[formEntry.formValue]} // TODO: split results based on word count
+                                                value={values[formEntry.formValue]} // TODO: split results based on
+                                                                                    // word count
                                             />
                                             {errors[formEntry.formValue]
                                              && touched[formEntry.formValue]
                                              && errors[formEntry.formValue]}
                                         </div>
                                     )
-
                                 }
                                 case 'dropdown': {
                                     if (!Array.isArray(formEntry.options)) {
                                         return
                                     }
                                     return (
-                                        <div role="group" aria-labelledby="checkbox-group" className="flex flex-col py-5"
+                                        <div role="group" aria-labelledby="checkbox-group"
+                                             className="flex flex-col py-5"
                                              key={idx}>
                                             <label className={formTextCss}
                                                    htmlFor={formEntry.formValue}>{formEntry.displayValue}</label>
+                                            {
+                                                formEntry.caption && <p className={captionTextCss}>{formEntry.caption}</p>
+                                            }
                                             <div className="flex flex-col pl-6">
                                                 {
                                                     formEntry.options.map((entry) => {
@@ -118,6 +142,9 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                                             <label
                                                 className={formTextCss}
                                                 htmlFor="file_input">{formEntry.displayValue}</label>
+                                            {
+                                                formEntry.caption && <p className={captionTextCss}>{formEntry.caption}</p>
+                                            }
                                             <div>
                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                      className="w-8 h-8 text-gray-400 group-hover:text-gray-600"
