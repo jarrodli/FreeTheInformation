@@ -20,14 +20,16 @@ export interface Form {
     if?: { formValue: string, type: string }
 }
 
+export const headerTextCss = "text-4xl font-inter font-semibold"
+
 export const formValues: Form[] = [
     {
-        displayValue: 'Personal information',
+        displayValue: '1. Personal information',
         formValue   : '',
         type        : 'header'
     },
     {
-        displayValue: 'Agency that you are applying to',
+        displayValue: 'Agency that you are requesting information from',
         formValue   : 'Agency',
         type        : 'input',
         validation  : 'agency', // TODO: autocomplete,
@@ -76,7 +78,7 @@ export const formValues: Form[] = [
         ]
     },
     {
-        displayValue: 'Information requested',
+        displayValue: '2. Information requested',
         formValue   : '',
         type        : 'header'
     },
@@ -282,16 +284,32 @@ const NSWForm: FunctionComponent<Props> = ({ data }) => {
 
 
     return (
-        <div className="p-20 max-w-4xl">
-            {/*<div className="">*/}
-            {/*    <p className={textCss}>To make an FOI request </p>*/}
-            {/*</div>*/}
-            {
-                downloadUrl && pdfFile ? <PdfViewer pdfDownloadUrl={downloadUrl} pdfFile={pdfFile} completedFormText={completedFormText}/> :
-                <FOIForm
-                    formValues={formValues}
-                    handleOnSubmit={handleSubmit}/>
-            }
+        <div className="p-20 max-w-5xl bg-white ">
+            <div>
+                <div>
+                    <h1 className={headerTextCss}>Make an FOI request in New South Wales</h1>
+                </div>
+                <div className="py-10 space-y-6">
+                    <p>
+                        Use this form if you want to make a Freedom of Information (FOI) request in New South Wales under the
+                        <i> Government Information (Public Access) Act 2009</i> (GIPA Act).
+                    </p>
+                    <p>
+                        After completing this form, a PDF file will be generated which can be submitted to the agency in question.
+                    </p>
+                    <p>
+                        The agency has 20 working days to process your request. If your request is not processed within this time frame, or your request is denied, you may be able to file a
+                        review request. For more information, see <a href={'/nsw/review'}>here</a>.
+                    </p>
+                </div>
+                {
+                    downloadUrl && pdfFile ? <PdfViewer pdfDownloadUrl={downloadUrl} pdfFile={pdfFile} completedFormText={completedFormText}/> :
+                    <FOIForm
+                        formValues={formValues}
+                        handleOnSubmit={handleSubmit}/>
+                }
+            </div>
+
         </div>
     )
 }

@@ -8,11 +8,13 @@ interface Props {
     handleOnSubmit(values: FormikValues): Promise<void>
 }
 
+export const headerTextCss = 'text-xl md:text-2xl font-inter'
+
 export const formTextCss =
-                 'text-xl md:text-2xl text-white hover:text-white hover:bg-opacity-20 font-inter'
+                 'font-inter'
 
 export const captionTextCss =
-                 'text-sm md:text-md text-white hover:text-white hover:bg-opacity-20 font-inter'
+                 'text-sm md:text-md font-inter'
 
 //TODO: add autocomplete api for address? https://developers.google.com/maps/documentation/javascript/place-autocomplete
 
@@ -45,8 +47,8 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                         formValues.map((formEntry, idx) => {
                             if (formEntry.type === 'header') {
                                 return (
-                                    <div>
-                                        <h2 className={`${formTextCss} text-center`}>{formEntry.displayValue}</h2>
+                                    <div className="pb-2 border-b-2 border-black mb-4">
+                                        <h2 className={`${headerTextCss}`}>{formEntry.displayValue}</h2>
                                     </div>
                                 )
                             }
@@ -59,7 +61,7 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                             switch (formEntry.type) {
                                 case 'input': {
                                     return (
-                                        <div key={idx} className="py-5">
+                                        <div key={idx} className="py-3">
                                             <label className={formTextCss}
                                                    htmlFor={formEntry.formValue}>{formEntry.displayValue}</label>
                                             {
