@@ -109,33 +109,37 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                                         return
                                     }
                                     return (
-                                        <div role="group" aria-labelledby="checkbox-group"
-                                             className="flex flex-col py-5"
-                                             key={idx}>
-                                            <label className={formTextCss}
-                                                   htmlFor={formEntry.formValue}>{formEntry.displayValue}</label>
+                                        <div>
+                                            <label htmlFor={formEntry.formValue} className="block text-sm font-medium text-gray-700">
+                                                {formEntry.displayValue}
+                                            </label>
                                             {
                                                 formEntry.caption && <p className={captionTextCss}>{formEntry.caption}</p>
                                             }
-                                            <div className="flex flex-col pl-6">
+                                            <select
+                                                id={formEntry.formValue}
+                                                name={formEntry.formValue}
+                                                onChange={handleChange}
+                                                className="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                            >
                                                 {
                                                     formEntry.options.map((entry) => {
-                                                        return (
-                                                            <label className={formTextCss}>
-                                                                <input type="radio" name={formEntry.formValue}
-                                                                       value={entry.formValue}
-                                                                       onClick={handleChange}
-                                                                       className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mr-5"/>
-                                                                {entry.displayValue}
-                                                            </label>
+                                                         return (
+                                                                <option value={entry.formValue}
+                                                                       >
+                                                                    {entry.displayValue}
+                                                                </option>
+
+
                                                         )
                                                     })
                                                 }
-                                            </div>
-                                            {errors[formEntry.formValue]
-                                             && touched[formEntry.formValue]
-                                             && errors[formEntry.formValue]}
+                                            </select>
                                         </div>
+                                        //     {errors[formEntry.formValue]
+                                        //      && touched[formEntry.formValue]
+                                        //      && errors[formEntry.formValue]}
+                                        // </div>
                                     )
                                 }
                                 case 'file': {
