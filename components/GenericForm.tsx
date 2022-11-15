@@ -14,7 +14,7 @@ export const formTextCss =
                  'font-inter'
 
 export const captionTextCss =
-                 'text-sm md:text-md font-inter'
+                 'text-sm md:text-md font-normal py-4'
 
 //TODO: add autocomplete api for address? https://developers.google.com/maps/documentation/javascript/place-autocomplete
 
@@ -83,7 +83,7 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                                 }
                                 case 'textarea': {
                                     return (
-                                        <div key={idx} className="py-5">
+                                        <div key={idx} className="py-3">
                                             <label className={formTextCss}
                                                    htmlFor={formEntry.formValue}>{formEntry.displayValue}</label>
                                             {
@@ -109,8 +109,8 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                                         return
                                     }
                                     return (
-                                        <div>
-                                            <label htmlFor={formEntry.formValue} className="block text-sm font-medium text-gray-700">
+                                        <div className={"py-3"}>
+                                            <label htmlFor={formEntry.formValue} className={formTextCss}>
                                                 {formEntry.displayValue}
                                             </label>
                                             {
@@ -120,17 +120,15 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                                                 id={formEntry.formValue}
                                                 name={formEntry.formValue}
                                                 onChange={handleChange}
-                                                className="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                                defaultValue={formEntry.options[0].formValue}
+                                                className="mt-3 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                             >
                                                 {
                                                     formEntry.options.map((entry) => {
                                                          return (
-                                                                <option value={entry.formValue}
-                                                                       >
+                                                                <option value={entry.formValue}>
                                                                     {entry.displayValue}
                                                                 </option>
-
-
                                                         )
                                                     })
                                                 }
@@ -183,7 +181,7 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                     }
                     <button
                         type="submit"
-                        className="inline-flex items-center rounded-md border border-gray-300 bg-white px-6 py-3 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-[#17305B] px-6 py-3 my-5 text-base font-medium text-white shadow-sm hover:bg-[#1F3D6A] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
                         Submit
                     </button>

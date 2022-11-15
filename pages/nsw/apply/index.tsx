@@ -109,7 +109,7 @@ export const formValues: Form[] = [
         options     : [
             { formValue: 'Inspect the documents', displayValue: 'Inspect the documents' },
             { formValue: 'A copy of the documents', displayValue: 'A copy of the documents' },
-            { formValue: 'Access in another way please specify', displayValue: 'Access in another way please specify' }
+            { formValue: 'Access in another way please specify', displayValue: 'Another way' }
         ]
     },
     {
@@ -120,6 +120,7 @@ export const formValues: Form[] = [
     },
     {
         displayValue: 'A $30 payment is required. How would you like to pay for this?',
+        caption: 'Please do not send cash with your application.',
         formValue   : 'Payment',
         type        : 'dropdown',
         options     : [

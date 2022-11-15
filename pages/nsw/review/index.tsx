@@ -4,8 +4,8 @@ import { PDFDocument, PDFForm }                          from 'pdf-lib'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import FOIForm                                           from '../../../components/GenericForm'
 import PdfViewer                                         from '../../../components/PdfViewer'
-import { textCss }                                       from '../../guide/Guide'
-import { Form }                                          from '../apply'
+import { textCss }             from '../../guide/Guide'
+import { Form, headerTextCss } from '../apply'
 
 interface Props {
     data: string
@@ -247,23 +247,25 @@ const NSWReviewForm: FunctionComponent<Props> = ({ data }) => {
 
 
     return (
-        <div className="p-20 max-w-4xl">
-            {
-                downloadUrl && pdfFile ? <PdfViewer pdfDownloadUrl={downloadUrl} pdfFile={pdfFile}
-                                                    completedFormText={completedFormText}/> :
+        <div className="p-20 max-w-5xl bg-white ">
+            <div>
                 <div>
-                    <div>
-                        <p className={textCss}>
-
-                        </p>
-                    </div>
+                    <h1 className={headerTextCss}>Make an FOI request in New South Wales</h1>
+                </div>
+                <div className="py-10 space-y-6">
+                    <p>
+                        Use this form if you want to make a Freedom of Information (FOI) request in New South Wales under the
+                        <i> Government Information (Public Access) Act 2009</i> (GIPA Act).
+                    </p>
+                </div>
+                {
+                    downloadUrl && pdfFile ? <PdfViewer pdfDownloadUrl={downloadUrl} pdfFile={pdfFile} completedFormText={completedFormText}/> :
                     <FOIForm
                         formValues={formValues}
                         handleOnSubmit={handleSubmit}/>
-                </div>
-            }
+                }
+            </div>
         </div>
-
     )
 }
 

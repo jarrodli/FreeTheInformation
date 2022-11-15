@@ -4,8 +4,8 @@ import { PDFDocument, PDFForm }                          from 'pdf-lib'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import FOIForm                                           from '../../../components/GenericForm'
 import PdfViewer                                         from '../../../components/PdfViewer'
-import { textCss }                                       from '../../guide/Guide'
-import { Form }                                          from '../../nsw/apply'
+import { textCss }             from '../../guide/Guide'
+import { Form, headerTextCss } from '../../nsw/apply'
 
 
 interface Props {
@@ -251,21 +251,31 @@ const CthReviewForm: FunctionComponent<Props> = ({ data }) => {
 
 
     return (
-        <div className="p-20 max-w-4xl">
-            {
-                downloadUrl && pdfFile ? <PdfViewer pdfDownloadUrl={downloadUrl} pdfFile={pdfFile}
-                                                    completedFormText={completedFormText}/> :
+        <div className="p-20 max-w-5xl bg-white ">
+            <div>
                 <div>
-                    <div>
-                        <p className={textCss}>
-
-                        </p>
-                    </div>
+                    <h1 className={headerTextCss}>Make an FOI request in New South Wales</h1>
+                </div>
+                <div className="py-10 space-y-6">
+                    <p>
+                        Use this form if you want to make a Freedom of Information (FOI) request in New South Wales under the
+                        <i> Government Information (Public Access) Act 2009</i> (GIPA Act).
+                    </p>
+                    <p>
+                        After completing this form, a PDF file will be generated which can be submitted to the agency in question.
+                    </p>
+                    <p>
+                        The agency has 20 working days to process your request. If your request is not processed within this time frame, or your request is denied, you may be able to file a
+                        review request. For more information, see <a href={'/nsw/review'}>here</a>.
+                    </p>
+                </div>
+                {
+                    downloadUrl && pdfFile ? <PdfViewer pdfDownloadUrl={downloadUrl} pdfFile={pdfFile} completedFormText={completedFormText}/> :
                     <FOIForm
                         formValues={formValues}
                         handleOnSubmit={handleSubmit}/>
-                </div>
-            }
+                }
+            </div>
         </div>
 
     )
