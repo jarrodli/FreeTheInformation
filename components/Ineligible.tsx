@@ -135,7 +135,7 @@ const Ineligible: FunctionComponent<Props> = ({
                                 <span
                                     onClick={() =>
                                         window.open(
-                                            "https://legislation.nsw.gov.au/view/html/inforce/current/act-2009-052"
+                                            "https://legislation.nsw.gov.au/view/html/inforce/2022-09-05/act-2009-052#sec.11"
                                         )
                                     }
                                     className="transition duration-500 italic text-blue-400 hover:text-white hover:underline hover:decoration-2 hover:decoration-blue-400 hover:cursor-pointer"
@@ -151,7 +151,7 @@ const Ineligible: FunctionComponent<Props> = ({
                                 <span
                                     onClick={() =>
                                         window.open(
-                                            "https://www.legislation.qld.gov.au/view/html/inforce/current/act-2009-013"
+                                            "https://www.legislation.qld.gov.au/view/html/inforce/current/act-2009-013#sec.47"
                                         )
                                     }
                                     className="transition duration-500 italic text-blue-400 hover:text-white hover:underline hover:decoration-2 hover:decoration-blue-400 hover:cursor-pointer"
