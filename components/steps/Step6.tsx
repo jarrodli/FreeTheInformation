@@ -2,22 +2,22 @@ import React, { FunctionComponent } from "react";
 import { textCss } from "../../pages/guide/Guide";
 
 interface Props {
-    conditionallyExemptDocument: number;
-    handleSetConditionallyExemptDocument: (n: number) => void;
+    exemptAgency: number;
+    handleSetExemptAgency: (n: number) => void;
 }
 
 const Step6: FunctionComponent<Props> = ({
-    conditionallyExemptDocument,
-    handleSetConditionallyExemptDocument,
+    exemptAgency,
+    handleSetExemptAgency,
 }) => {
     return (
         <div>
             <div className="my-16 flex mx-auto place-content-center">
                 <div className="space-x-8 space-y-8">
                     <button
-                        onClick={() => handleSetConditionallyExemptDocument(0)}
+                        onClick={() => handleSetExemptAgency(0)}
                         className={`border-2 ${textCss} ${
-                            conditionallyExemptDocument === 0
+                            exemptAgency === 0
                                 ? "bg-white text-midnights hover:bg-opacity-70"
                                 : null
                         }`}
@@ -25,9 +25,9 @@ const Step6: FunctionComponent<Props> = ({
                         Yes
                     </button>
                     <button
-                        onClick={() => handleSetConditionallyExemptDocument(1)}
+                        onClick={() => handleSetExemptAgency(1)}
                         className={`border-2 ${textCss} ${
-                            conditionallyExemptDocument === 1
+                            exemptAgency === 1
                                 ? "bg-white text-midnights hover:bg-opacity-70"
                                 : null
                         }`}
