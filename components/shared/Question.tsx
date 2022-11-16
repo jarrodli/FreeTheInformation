@@ -6,7 +6,7 @@ interface Props {
 
 const Question: FunctionComponent<Props> = ({ question }) => {
     return (
-        <p className="mx-2 text-3xl md:text-4xl text-center font-bold font-inter">
+        <p className="mx-2 text-3xl md:text-4xl text-center font-bold font-inter text-white">
             {question}
         </p>
     );
