@@ -71,29 +71,29 @@ const Guide: FunctionComponent<Props> = ({}) => {
         }
     };
 
-    const checkEligibility = () => {
-        if (
+    const checkEligibility = (oldPage: number) => {
+        if (ineligible === 0 && (
             formState.conditionallyExemptDocument === 0 ||
             formState.deniedOrDelayed === 0 ||
             formState.exemptAgency === 0 ||
             formState.fullExemptDocument === 0 ||
             formState.historicInformation === 0 ||
-            formState.publiclyAvailable === 0
+            formState.publiclyAvailable === 0)
         ) {
-            setIneligible(formState.page);
-        } else {
-            setIneligible(0);
+            setIneligible(oldPage)
+        } else if (ineligible > 0) {
+            setIneligible(0)
         }
     };
+
+    useEffect(() => console.log(`formstate`, formState), [formState])
 
     useEffect(() => console.log(`ineligible ${ineligible}`), [ineligible]);
 
     const handleSetPage = (newPage: number) => {
         const stateCpy = { ...formState };
 
-        if (newPage > formState.page) {
-            checkEligibility();
-        }
+        checkEligibility(stateCpy.page);
 
         stateCpy.page = newPage;
         setFormState(stateCpy);
@@ -136,7 +136,6 @@ const Guide: FunctionComponent<Props> = ({}) => {
     };
 
     const handleSetEligible = () => {
-        setIneligible(formState.page - 1);
         handleSetPage(formState.page - 1);
     };
 
