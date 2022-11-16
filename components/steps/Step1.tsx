@@ -14,9 +14,9 @@ const Step1: FunctionComponent<Props> = ({
         <div className="my-16 flex mx-auto place-content-center">
             <div className="space-x-8 space-y-8">
                 <button
-                    onClick={() => handleSetJurisdiction("VIC")}
+                    onClick={() => handleSetJurisdiction("CTH")}
                     className={`border-2 ${textCss} ${
-                        jurisdiction === "VIC"
+                        jurisdiction === "CTH"
                             ? "bg-white text-midnights hover:bg-opacity-70"
                             : null
                     }`}
