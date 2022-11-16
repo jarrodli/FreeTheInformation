@@ -1,18 +1,21 @@
-import React, { FunctionComponent, useState } from "react";
-import Navigator from "./components/shared/Navigator";
-import Question from "./components/shared/Question";
-import Step1 from "./components/steps/Step1";
-import Step2 from "./components/steps/Step2";
-import Step3 from "./components/steps/Step3";
-import Step4 from "./components/steps/Step4";
-import Step5 from "./components/steps/Step5";
-import Step6 from "./components/steps/Step6";
-import Step7 from "./components/steps/Step7";
+import React, { FunctionComponent, use, useEffect, useState } from "react";
+import Ineligible from "../../components/Ineligible";
+import Info1 from "../../components/info/Info1";
+import Modal from "../../components/Modal";
+import Navigator from "../../components/shared/Navigator";
+import Question from "../../components/shared/Question";
+import Step1 from "../../components/steps/Step1";
+import Step2 from "../../components/steps/Step2";
+import Step3 from "../../components/steps/Step3";
+import Step4 from "../../components/steps/Step4";
+import Step5 from "../../components/steps/Step5";
+import Step6 from "../../components/steps/Step6";
+import Step7 from "../../components/steps/Step7";
 
 export const buttonCss =
     "border-2 py-9 px-9 border-white hover:bg-gray-100 hover:bg-opacity-20 rounded-full bg-no-repeat bg-contain disabled:opacity-50";
-export const textCss =
-    "text-xl md:text-2xl px-8 p-4 text-white hover:bg-gray-100 hover:text-white hover:bg-opacity-20 font-inter";
+export const textBaseCss = "text-white font-inter";
+export const textCss = `text-xl md:text-2xl px-8 p-4 hover:bg-gray-100 hover:text-white hover:bg-opacity-20 ${textBaseCss}`;
 
 interface Props {}
 
@@ -50,6 +53,8 @@ const defaultState = {
 
 const Guide: FunctionComponent<Props> = ({}) => {
     const [formState, setFormState] = useState<State>(defaultState);
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [ineligible, setIneligible] = useState<number>(0);
 
     const handleClearState = () => {
         setFormState(defaultState);
@@ -66,8 +71,30 @@ const Guide: FunctionComponent<Props> = ({}) => {
         }
     };
 
+    const checkEligibility = () => {
+        if (
+            formState.conditionallyExemptDocument === 0 ||
+            formState.deniedOrDelayed === 0 ||
+            formState.exemptAgency === 0 ||
+            formState.fullExemptDocument === 0 ||
+            formState.historicInformation === 0 ||
+            formState.publiclyAvailable === 0
+        ) {
+            setIneligible(formState.page);
+        } else {
+            setIneligible(0);
+        }
+    };
+
+    useEffect(() => console.log(`ineligible ${ineligible}`), [ineligible]);
+
     const handleSetPage = (newPage: number) => {
         const stateCpy = { ...formState };
+
+        if (newPage > formState.page) {
+            checkEligibility();
+        }
+
         stateCpy.page = newPage;
         setFormState(stateCpy);
     };
@@ -108,11 +135,20 @@ const Guide: FunctionComponent<Props> = ({}) => {
         setFormState(stateCpy);
     };
 
+    const handleSetEligible = () => {
+        setIneligible(formState.page - 1);
+        handleSetPage(formState.page - 1);
+    };
+
+    const handleModalClose = () => setModalOpen(false);
+
     return (
         <div className="h-screen flex place-content-center">
             <div className="mx-8 my-48 place-content-center">
                 <Question question={Questions[formState.page - 1]} />
-                {formState.page === 1 ? (
+                {formState.page > ineligible && ineligible !== 0 ? (
+                    <Ineligible handleSetEligible={handleSetEligible} />
+                ) : formState.page === 1 ? (
                     <Step1
                         jurisdiction={formState.jurisdiction}
                         handleSetJurisdiction={handleSetJurisdiction}
@@ -159,7 +195,28 @@ const Guide: FunctionComponent<Props> = ({}) => {
                     handleSetPage={handleSetPage}
                     handleClearState={handleClearState}
                 />
+                <div className="flex flex-row-reverse">
+                    <button
+                        onClick={() => setModalOpen(true)}
+                        className={`${buttonCss} border-0 py-0 px-0 h-12 w-12 bg-info -mt-2 mx-4`}
+                    />
+                    {formState.page > 1 && (
+                        <p
+                            className={`${textBaseCss} text-xl italic hover:underline hover:decoration-2 hover:cursor-pointer`}
+                        >
+                            {ineligible
+                                ? "Continue to FOI request form anyway."
+                                : "Skip to FOI request form."}
+                        </p>
+                    )}
+                </div>
             </div>
+
+            <Modal
+                page={formState.page}
+                modalOpen={modalOpen}
+                handleModalClose={handleModalClose}
+            />
         </div>
     );
 };

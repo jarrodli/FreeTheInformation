@@ -1,23 +1,22 @@
 import React, { FunctionComponent } from "react";
-import { textCss } from "../../Guide";
-
+import { textCss } from "../../pages/guide/Guide";
 interface Props {
-    exemptAgency: number;
-    handleSetExemptAgency: (n: number) => void;
+    deniedOrDelayed: number;
+    handleSetDeniedOrDelayed: (n: number) => void;
 }
 
-const Step7: FunctionComponent<Props> = ({
-    exemptAgency,
-    handleSetExemptAgency,
+const Step2: FunctionComponent<Props> = ({
+    deniedOrDelayed,
+    handleSetDeniedOrDelayed,
 }) => {
     return (
         <div>
             <div className="my-16 flex mx-auto place-content-center">
                 <div className="space-x-8 space-y-8">
                     <button
-                        onClick={() => handleSetExemptAgency(0)}
+                        onClick={() => handleSetDeniedOrDelayed(0)}
                         className={`border-2 ${textCss} ${
-                            exemptAgency === 0
+                            deniedOrDelayed === 0
                                 ? "bg-white text-midnights hover:bg-opacity-70"
                                 : null
                         }`}
@@ -25,24 +24,14 @@ const Step7: FunctionComponent<Props> = ({
                         Yes
                     </button>
                     <button
-                        onClick={() => handleSetExemptAgency(1)}
+                        onClick={() => handleSetDeniedOrDelayed(1)}
                         className={`border-2 ${textCss} ${
-                            exemptAgency === 1
+                            deniedOrDelayed === 1
                                 ? "bg-white text-midnights hover:bg-opacity-70"
                                 : null
                         }`}
                     >
                         No
-                    </button>
-                    <button
-                        onClick={() => handleSetExemptAgency(2)}
-                        className={`border-2 ${textCss} ${
-                            exemptAgency === 2
-                                ? "bg-white text-midnights hover:bg-opacity-70"
-                                : null
-                        }`}
-                    >
-                        I'm not sure
                     </button>
                 </div>
             </div>
@@ -50,4 +39,4 @@ const Step7: FunctionComponent<Props> = ({
     );
 };
 
-export default Step7;
+export default Step2;

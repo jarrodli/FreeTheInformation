@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { textCss } from "../../Guide";
-
+import { textCss } from "../../pages/guide/Guide";
 interface Props {
     fullExemptDocument: number;
     handleSetFullExemptDocument: (n: number) => void;
@@ -33,16 +32,6 @@ const Step5: FunctionComponent<Props> = ({
                         }`}
                     >
                         No
-                    </button>
-                    <button
-                        onClick={() => handleSetFullExemptDocument(2)}
-                        className={`border-2 ${textCss} ${
-                            fullExemptDocument === 2
-                                ? "bg-white text-midnights hover:bg-opacity-70"
-                                : null
-                        }`}
-                    >
-                        I'm not sure
                     </button>
                 </div>
             </div>

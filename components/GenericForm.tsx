@@ -1,35 +1,31 @@
-import { Field, Formik, FormikValues } from 'formik'
-import React, { FunctionComponent } from 'react'
-import { Form }                     from '../pages/nsw/apply'
+import { Field, Formik, FormikValues } from "formik";
+import React, { FunctionComponent } from "react";
+import { Form } from "../pages/nsw/apply";
 
 interface Props {
-    formValues: Form[]
+    formValues: Form[];
 
-    handleOnSubmit(values: FormikValues): Promise<void>
+    handleOnSubmit(values: FormikValues): Promise<void>;
 }
 
-export const headerTextCss = 'text-xl md:text-2xl font-inter'
+export const headerTextCss = "text-xl md:text-2xl font-inter text-black";
 
-export const formTextCss =
-                 'font-inter'
+export const formTextCss = "font-inter text-black";
 
-export const captionTextCss =
-                 'text-sm md:text-md font-normal py-4'
+export const captionTextCss = "text-sm md:text-md font-normal py-4 text-black";
 
 //TODO: add autocomplete api for address? https://developers.google.com/maps/documentation/javascript/place-autocomplete
 
 const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
     const initialValues = formValues.map((val) => {
-        return { [val.formValue]: '' }
-    })
+        return { [val.formValue]: "" };
+    });
     return (
         <Formik
             initialValues={Object.assign({}, ...initialValues)}
-            validate={values => {
-
-            }}
+            validate={(values) => {}}
             onSubmit={async (values, { setSubmitting }) => {
-                await handleOnSubmit(values)
+                await handleOnSubmit(values);
             }}
         >
             {({
@@ -39,7 +35,7 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                 handleChange,
                 handleBlur,
                 handleSubmit,
-                isSubmitting
+                isSubmitting,
                 /* and other goodies */
             }) => (
                 <form onSubmit={handleSubmit} className="flex flex-col ">
@@ -192,7 +188,7 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                 </form>
             )}
         </Formik>
-    )
-}
+    );
+};
 
-export default FOIForm
+export default FOIForm;

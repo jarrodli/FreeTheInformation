@@ -21,6 +21,7 @@ module.exports = {
         background: "url('/background.svg')",
         arrowLeft: "url('/arrow-left.svg')",
         arrowRight: "url('/arrow-right.svg')",
+        info: "url('/info.svg')",
       }
     },
   },

@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { textCss } from "../../Guide";
+import { textCss } from "../../pages/guide/Guide";
 
 interface Props {
     jurisdiction: string;
@@ -14,6 +14,16 @@ const Step1: FunctionComponent<Props> = ({
         <div className="my-16 flex mx-auto place-content-center">
             <div className="space-x-8 space-y-8">
                 <button
+                    onClick={() => handleSetJurisdiction("VIC")}
+                    className={`border-2 ${textCss} ${
+                        jurisdiction === "VIC"
+                            ? "bg-white text-midnights hover:bg-opacity-70"
+                            : null
+                    }`}
+                >
+                    Commonwealth
+                </button>
+                <button
                     onClick={() => handleSetJurisdiction("NSW")}
                     className={`border-2 ${textCss} ${
                         jurisdiction === "NSW"
@@ -22,16 +32,6 @@ const Step1: FunctionComponent<Props> = ({
                     }`}
                 >
                     New South Wales
-                </button>
-                <button
-                    onClick={() => handleSetJurisdiction("VIC")}
-                    className={`border-2 ${textCss} ${
-                        jurisdiction === "VIC"
-                            ? "bg-white text-midnights hover:bg-opacity-70"
-                            : null
-                    }`}
-                >
-                    Victoria
                 </button>
                 <button
                     onClick={() => handleSetJurisdiction("QLD")}

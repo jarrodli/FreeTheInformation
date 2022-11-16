@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { textCss } from "../../Guide";
+import { textCss } from "../../pages/guide/Guide";
 
 interface Props {
     conditionallyExemptDocument: number;
@@ -33,16 +33,6 @@ const Step6: FunctionComponent<Props> = ({
                         }`}
                     >
                         No
-                    </button>
-                    <button
-                        onClick={() => handleSetConditionallyExemptDocument(2)}
-                        className={`border-2 ${textCss} ${
-                            conditionallyExemptDocument === 2
-                                ? "bg-white text-midnights hover:bg-opacity-70"
-                                : null
-                        }`}
-                    >
-                        I'm not sure
                     </button>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { State, textCss } from "../../Guide";
+import { State, textCss } from "../../pages/guide/Guide";
 
 interface Props {
     publiclyAvailable: number;
@@ -33,16 +33,6 @@ const Step3: FunctionComponent<Props> = ({
                         }`}
                     >
                         No
-                    </button>
-                    <button
-                        onClick={() => handleSetPubliclyAvailable(2)}
-                        className={`border-2 ${textCss} ${
-                            publiclyAvailable === 2
-                                ? "bg-white text-midnights hover:bg-opacity-70"
-                                : null
-                        }`}
-                    >
-                        I'm not sure
                     </button>
                 </div>
             </div>

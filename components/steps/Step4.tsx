@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { textCss } from "../../Guide";
-
+import { textCss } from "../../pages/guide/Guide";
 interface Props {
     historicInformation: number;
     handleSetHistoricDocument: (n: number) => void;
@@ -33,16 +32,6 @@ const Step4: FunctionComponent<Props> = ({
                         }`}
                     >
                         No
-                    </button>
-                    <button
-                        onClick={() => handleSetHistoricDocument(2)}
-                        className={`border-2 ${textCss} ${
-                            historicInformation === 2
-                                ? "bg-white text-midnights hover:bg-opacity-70"
-                                : null
-                        }`}
-                    >
-                        I'm not sure
                     </button>
                 </div>
             </div>
