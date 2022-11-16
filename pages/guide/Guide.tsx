@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React, { FunctionComponent, use, useEffect, useState } from "react";
 import Ineligible from "../../components/Ineligible";
 import Info1 from "../../components/info/Info1";
@@ -31,6 +32,7 @@ export type State = {
 };
 
 const Questions = [
+    "Sorry, you don't appear eligible to submit a Freedom of Information request.",
     "Select the State or Territory holding the information to be requested.",
     "Have you already made an application that has been denied or delayed?",
     "Is the information you are seeking already publicly available?",
@@ -55,6 +57,7 @@ const Guide: FunctionComponent<Props> = ({}) => {
     const [formState, setFormState] = useState<State>(defaultState);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [ineligible, setIneligible] = useState<number>(0);
+    const router = useRouter();
 
     const handleClearState = () => {
         setFormState(defaultState);
@@ -71,29 +74,39 @@ const Guide: FunctionComponent<Props> = ({}) => {
         }
     };
 
-    const checkEligibility = (oldPage: number) => {
-        if (ineligible === 0 && (
-            formState.conditionallyExemptDocument === 0 ||
-            formState.deniedOrDelayed === 0 ||
-            formState.exemptAgency === 0 ||
-            formState.fullExemptDocument === 0 ||
-            formState.historicInformation === 0 ||
-            formState.publiclyAvailable === 0)
+    const progressToForm = (newPage: number, bypass: boolean = false) => {
+        if (
+            bypass ||
+            (formState.jurisdiction === "CTH" && newPage > 7) ||
+            (formState.jurisdiction !== "CTH" && newPage > 5)
         ) {
-            setIneligible(oldPage)
-        } else if (ineligible > 0) {
-            setIneligible(0)
+            router.push(`${formState.jurisdiction.toLowerCase()}/apply`);
         }
     };
 
-    useEffect(() => console.log(`formstate`, formState), [formState])
-
-    useEffect(() => console.log(`ineligible ${ineligible}`), [ineligible]);
+    const checkEligibility = (oldPage: number, newPage: number) => {
+        if (
+            ineligible === 0 &&
+            (formState.conditionallyExemptDocument === 0 ||
+                formState.deniedOrDelayed === 0 ||
+                formState.exemptAgency === 0 ||
+                formState.fullExemptDocument === 0 ||
+                formState.historicInformation === 0 ||
+                formState.publiclyAvailable === 0)
+        ) {
+            console.log(`ineleg ${oldPage}`);
+            setIneligible(oldPage);
+        } else if (ineligible > 0) {
+            setIneligible(0);
+        } else {
+            progressToForm(newPage);
+        }
+    };
 
     const handleSetPage = (newPage: number) => {
         const stateCpy = { ...formState };
 
-        checkEligibility(stateCpy.page);
+        checkEligibility(stateCpy.page, newPage);
 
         stateCpy.page = newPage;
         setFormState(stateCpy);
@@ -144,9 +157,19 @@ const Guide: FunctionComponent<Props> = ({}) => {
     return (
         <div className="h-screen flex place-content-center">
             <div className="mx-8 my-48 place-content-center">
-                <Question question={Questions[formState.page - 1]} />
+                <Question
+                    question={
+                        formState.page > ineligible && ineligible !== 0
+                            ? Questions[0]
+                            : Questions[formState.page]
+                    }
+                />
                 {formState.page > ineligible && ineligible !== 0 ? (
-                    <Ineligible handleSetEligible={handleSetEligible} />
+                    <Ineligible
+                        jurisdiction={formState.jurisdiction}
+                        pivot={formState.page}
+                        handleSetEligible={handleSetEligible}
+                    />
                 ) : formState.page === 1 ? (
                     <Step1
                         jurisdiction={formState.jurisdiction}
@@ -189,19 +212,23 @@ const Guide: FunctionComponent<Props> = ({}) => {
                         handleSetExemptAgency={handleSetExemptAgency}
                     />
                 ) : null}
-                <Navigator
-                    formState={formState}
-                    handleSetPage={handleSetPage}
-                    handleClearState={handleClearState}
-                />
-                <div className="flex flex-row-reverse">
-                    <button
-                        onClick={() => setModalOpen(true)}
-                        className={`${buttonCss} border-0 py-0 px-0 h-12 w-12 bg-info -mt-2 mx-4`}
+                {(formState.page < ineligible || ineligible === 0) && (
+                    <Navigator
+                        formState={formState}
+                        handleSetPage={handleSetPage}
+                        handleClearState={handleClearState}
                     />
+                )}
+                <div className="flex flex-row-reverse">
+                    {!(formState.page > ineligible && ineligible !== 0) && (
+                        <button
+                            onClick={() => setModalOpen(true)}
+                            className={`${buttonCss} border-0 py-0 px-0 h-12 w-12 bg-info -mt-2 mx-6`}
+                        />
+                    )}
                     {formState.page > 1 && (
                         <p
-                            className={`${textBaseCss} text-xl italic hover:underline hover:decoration-2 hover:cursor-pointer`}
+                            className={`${textBaseCss} text-xl italic hover:underline hover:decoration-2 hover:cursor-pointer mx-6`}
                         >
                             {ineligible
                                 ? "Continue to FOI request form anyway."

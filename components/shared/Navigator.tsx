@@ -27,7 +27,18 @@ const Navigator: FunctionComponent<Props> = ({
             </button>
             <button
                 onClick={() => handleSetPage(formState.page + 1)}
-                disabled={!formState.jurisdiction}
+                disabled={
+                    (!formState.jurisdiction && formState.page === 1) ||
+                    (formState.deniedOrDelayed < 0 && formState.page === 2) ||
+                    (formState.publiclyAvailable < 0 && formState.page === 3) ||
+                    (formState.historicInformation < 0 &&
+                        formState.page === 4) ||
+                    (formState.fullExemptDocument < 0 &&
+                        formState.page === 5) ||
+                    (formState.conditionallyExemptDocument < 0 &&
+                        formState.page === 6) ||
+                    (formState.exemptAgency < 0 && formState.page === 7)
+                }
                 className={`${buttonCss} bg-arrowRight`}
             />
         </div>

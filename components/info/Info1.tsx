@@ -25,7 +25,7 @@ const Info1: FunctionComponent<{}> = () => {
                                 }
                                 className="transition duration-500 italic text-blue-500 hover:text-gray-400 hover:underline hover:decoration-2 hover:decoration-blue-500 hover:cursor-pointer"
                             >
-                                Government Freedom of Information Act 1982
+                                Freedom of Information Act 1982
                             </span>{" "}
                             (Cth)
                         </p>
@@ -36,12 +36,12 @@ const Info1: FunctionComponent<{}> = () => {
                             <span
                                 onClick={() =>
                                     window.open(
-                                        "https://legislation.nsw.gov.au/view/html/inforce/current/act-2009-053"
+                                        "https://legislation.nsw.gov.au/view/html/inforce/current/act-2009-052"
                                     )
                                 }
                                 className="transition duration-500 italic text-blue-500 hover:text-gray-400 hover:underline hover:decoration-2 hover:decoration-blue-500 hover:cursor-pointer"
                             >
-                                Information (Public Access) Act 2009
+                                Government Information (Public Access) Act 2009
                             </span>{" "}
                             (NSW)
                         </p>
