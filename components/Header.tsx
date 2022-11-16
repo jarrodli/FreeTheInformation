@@ -12,7 +12,8 @@ const cthNavigation = [
 ]
 
 const qldNavigation = [
-    { name: 'Make a Request', href: '/qld/apply' }
+    { name: 'Make a Request', href: '/qld/apply' },
+    { name: 'Review a Request', href: '/qld/review' }
 ]
 
 const nav = [
