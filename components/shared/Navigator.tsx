@@ -35,9 +35,9 @@ const Navigator: FunctionComponent<Props> = ({
                         formState.page === 4) ||
                     (formState.fullExemptDocument < 0 &&
                         formState.page === 5) ||
+                    (formState.exemptAgency < 0 && formState.page === 6) ||
                     (formState.conditionallyExemptDocument < 0 &&
-                        formState.page === 6) ||
-                    (formState.exemptAgency < 0 && formState.page === 7)
+                        formState.page === 7)
                 }
                 className={`${buttonCss} bg-arrowRight`}
             />

@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import React, { FunctionComponent, use, useEffect, useState } from "react";
 import Ineligible from "../../components/Ineligible";
-import Info1 from "../../components/info/Info1";
 import Modal from "../../components/Modal";
 import Navigator from "../../components/shared/Navigator";
 import Question from "../../components/shared/Question";
@@ -33,13 +32,14 @@ export type State = {
 
 const Questions = [
     "Sorry, you don't appear eligible to submit a Freedom of Information request.",
+    "You may not succeed in submitting a Freedom of Information request.",
     "Select the State or Territory holding the information to be requested.",
     "Have you already made an application that has been denied or delayed?",
     "Is the information you are seeking already publicly available?",
     "Are you requesting historic government information?",
     "Are you requesting an exempt document?",
-    "Are you requesting a conditionally exempt document?",
     "Are you requesting a document from an exempt agency?",
+    "Are you requesting a conditionally exempt document?",
 ];
 
 const defaultState = {
@@ -74,7 +74,7 @@ const Guide: FunctionComponent<Props> = ({}) => {
         }
     };
 
-    const progressToForm = (newPage: number, bypass: boolean = false) => {
+    const progressToForm = (newPage: number = 0, bypass: boolean = false) => {
         if (
             bypass ||
             (formState.jurisdiction === "CTH" && newPage > 7) ||
@@ -156,93 +156,119 @@ const Guide: FunctionComponent<Props> = ({}) => {
 
     return (
         <div className="h-screen flex place-content-center">
-            <div className="mx-8 my-48 place-content-center">
-                <Question
-                    question={
-                        formState.page > ineligible && ineligible !== 0
-                            ? Questions[0]
-                            : Questions[formState.page]
-                    }
-                />
-                {formState.page > ineligible && ineligible !== 0 ? (
-                    <Ineligible
-                        jurisdiction={formState.jurisdiction}
-                        pivot={formState.page}
-                        handleSetEligible={handleSetEligible}
-                    />
-                ) : formState.page === 1 ? (
-                    <Step1
-                        jurisdiction={formState.jurisdiction}
-                        handleSetJurisdiction={handleSetJurisdiction}
-                    />
-                ) : formState.page === 2 ? (
-                    <Step2
-                        deniedOrDelayed={formState.deniedOrDelayed}
-                        handleSetDeniedOrDelayed={handleSetDeniedOrDelayed}
-                    />
-                ) : formState.page === 3 ? (
-                    <Step3
-                        publiclyAvailable={formState.publiclyAvailable}
-                        handleSetPubliclyAvailable={handleSetPubliclyAvailable}
-                    />
-                ) : formState.page === 4 ? (
-                    <Step4
-                        historicInformation={formState.historicInformation}
-                        handleSetHistoricDocument={handleSetHistoricDocument}
-                    />
-                ) : formState.page === 5 ? (
-                    <Step5
-                        fullExemptDocument={formState.fullExemptDocument}
-                        handleSetFullExemptDocument={
-                            handleSetFullExemptDocument
-                        }
-                    />
-                ) : formState.page === 6 ? (
-                    <Step6
-                        conditionallyExemptDocument={
-                            formState.conditionallyExemptDocument
-                        }
-                        handleSetConditionallyExemptDocument={
-                            handleSetConditionallyExemptDocument
-                        }
-                    />
-                ) : formState.page === 7 ? (
-                    <Step7
-                        exemptAgency={formState.exemptAgency}
-                        handleSetExemptAgency={handleSetExemptAgency}
-                    />
-                ) : null}
-                {(formState.page < ineligible || ineligible === 0) && (
-                    <Navigator
-                        formState={formState}
-                        handleSetPage={handleSetPage}
-                        handleClearState={handleClearState}
-                    />
-                )}
-                <div className="flex flex-row-reverse">
-                    {!(formState.page > ineligible && ineligible !== 0) && (
-                        <button
-                            onClick={() => setModalOpen(true)}
-                            className={`${buttonCss} border-0 py-0 px-0 h-12 w-12 bg-info -mt-2 mx-6`}
+            {ineligible > 0 ||
+            !(
+                (formState.jurisdiction === "CTH" && formState.page > 7) ||
+                (formState.jurisdiction !== "CTH" && formState.page > 5)
+            ) ? (
+                <>
+                    <div className="w-full mx-8 my-48 place-content-center">
+                        <Question
+                            question={
+                                formState.page > ineligible &&
+                                ineligible !== 0 &&
+                                formState.page > 5
+                                    ? Questions[1]
+                                    : formState.page > ineligible &&
+                                      ineligible !== 0
+                                    ? Questions[0]
+                                    : Questions[formState.page + 1]
+                            }
                         />
-                    )}
-                    {formState.page > 1 && (
-                        <p
-                            className={`${textBaseCss} text-xl italic hover:underline hover:decoration-2 hover:cursor-pointer mx-6`}
-                        >
-                            {ineligible
-                                ? "Continue to FOI request form anyway."
-                                : "Skip to FOI request form."}
-                        </p>
-                    )}
-                </div>
-            </div>
+                        {formState.page > ineligible && ineligible !== 0 ? (
+                            <Ineligible
+                                jurisdiction={formState.jurisdiction}
+                                pivot={formState.page}
+                                handleSetEligible={handleSetEligible}
+                            />
+                        ) : formState.page === 1 ? (
+                            <Step1
+                                jurisdiction={formState.jurisdiction}
+                                handleSetJurisdiction={handleSetJurisdiction}
+                            />
+                        ) : formState.page === 2 ? (
+                            <Step2
+                                deniedOrDelayed={formState.deniedOrDelayed}
+                                handleSetDeniedOrDelayed={
+                                    handleSetDeniedOrDelayed
+                                }
+                            />
+                        ) : formState.page === 3 ? (
+                            <Step3
+                                publiclyAvailable={formState.publiclyAvailable}
+                                handleSetPubliclyAvailable={
+                                    handleSetPubliclyAvailable
+                                }
+                            />
+                        ) : formState.page === 4 ? (
+                            <Step4
+                                historicInformation={
+                                    formState.historicInformation
+                                }
+                                handleSetHistoricDocument={
+                                    handleSetHistoricDocument
+                                }
+                            />
+                        ) : formState.page === 5 ? (
+                            <Step5
+                                fullExemptDocument={
+                                    formState.fullExemptDocument
+                                }
+                                handleSetFullExemptDocument={
+                                    handleSetFullExemptDocument
+                                }
+                            />
+                        ) : formState.page === 6 ? (
+                            <Step6
+                                exemptAgency={formState.exemptAgency}
+                                handleSetExemptAgency={handleSetExemptAgency}
+                            />
+                        ) : formState.page === 7 ? (
+                            <Step7
+                                conditionallyExemptDocument={
+                                    formState.conditionallyExemptDocument
+                                }
+                                handleSetConditionallyExemptDocument={
+                                    handleSetConditionallyExemptDocument
+                                }
+                            />
+                        ) : null}
+                        {(formState.page < ineligible || ineligible === 0) && (
+                            <Navigator
+                                formState={formState}
+                                handleSetPage={handleSetPage}
+                                handleClearState={handleClearState}
+                            />
+                        )}
+                        <div className="flex flex-row-reverse mx-20">
+                            {!(
+                                formState.page > ineligible && ineligible !== 0
+                            ) && (
+                                <button
+                                    onClick={() => setModalOpen(true)}
+                                    className={`${buttonCss} border-0 py-0 px-0 h-12 w-12 bg-info -mt-2 mx-6`}
+                                />
+                            )}
+                            {formState.page > 1 && (
+                                <button
+                                    onClick={() => progressToForm(0, true)}
+                                    className={`${textBaseCss} text-mg md:text-xl italic hover:underline hover:decoration-2 hover:cursor-pointer`}
+                                >
+                                    {ineligible
+                                        ? "Continue to FOI request form anyway."
+                                        : "Skip to FOI request form."}
+                                </button>
+                            )}
+                        </div>
+                    </div>
 
-            <Modal
-                page={formState.page}
-                modalOpen={modalOpen}
-                handleModalClose={handleModalClose}
-            />
+                    <Modal
+                        page={formState.page}
+                        modalOpen={modalOpen}
+                        handleModalClose={handleModalClose}
+                    />
+                </>
+            ) : null}
         </div>
     );
 };
