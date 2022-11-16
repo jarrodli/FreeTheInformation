@@ -2,9 +2,8 @@ import { FormikValues }                                  from 'formik'
 import { promises as fs }                                from 'fs'
 import { PDFDocument, PDFForm }                          from 'pdf-lib'
 import React, { FunctionComponent, useEffect, useState } from 'react'
-import FOIForm                                           from '../../../components/GenericForm'
+import FOIForm, { formTextCss }                          from '../../../components/GenericForm'
 import PdfViewer                                         from '../../../components/PdfViewer'
-import { textCss }             from '../../guide/Guide'
 import { Form, headerTextCss } from '../../nsw/apply'
 
 
@@ -14,7 +13,7 @@ interface Props {
 
 const formValues: Form[] = [
     {
-        displayValue: 'Personal information',
+        displayValue: '1. Personal information',
         formValue   : '',
         type        : 'header'
     },
@@ -68,9 +67,10 @@ const formValues: Form[] = [
         ]
     },
     {
-        displayValue: 'The applicant\'s details',
+        displayValue: '2. The applicant\'s details',
         formValue   : '',
-        type        : 'header'
+        type        : 'header', //TODO: check this??/ should it be if behalf is yes?
+
     },
     {
         displayValue: 'Title',
@@ -82,6 +82,11 @@ const formValues: Form[] = [
             {formValue: 'app_ms', displayValue: 'Ms'},
             {formValue: 'app_mr', displayValue: 'Dr'},
         ]
+    },
+    {
+        displayValue: '3. Information requested',
+        formValue   : '',
+        type        : 'header'
     },
     {
         displayValue: 'Full Name',
@@ -178,12 +183,13 @@ const CthApplyForm: FunctionComponent<Props> = ({ data }) => {
             new Blob([pdfBytes], { type: 'application/pdf' })
         )
         setDownloadUrl(docUrl)
+        window.scrollTo(0, 0)
     }
 
     const completedFormText = () => {
-        return <p className={textCss}>
+        return <p className={formTextCss}>
             A completed FOI review request form has been generated. Please sign it, attach any relevant payment
-            information, and email it
+            information, and email it to the agency in question.
         </p> //TODO: fix
     }
 
@@ -192,12 +198,19 @@ const CthApplyForm: FunctionComponent<Props> = ({ data }) => {
         <div className="p-20 max-w-5xl bg-white ">
             <div>
                 <div>
-                    <h1 className={headerTextCss}>Make an FOI request in New South Wales</h1>
+                    <h1 className={headerTextCss}>Make an FOI request to a Commonwealth Agency</h1>
                 </div>
                 <div className="py-10 space-y-6">
                     <p>
-                        Use this form if you want to make a Freedom of Information (FOI) request in New South Wales under the
-                        <i> Government Information (Public Access) Act 2009</i> (GIPA Act).
+                        Use this form if you want to make a Freedom of Information (FOI) request for a Commonwealth Agency under the
+                        <i> Freedom of Information Act 1982 (Cth) (FOI Act)</i> (FOI Act).
+                    </p>
+                    <p>
+                        After completing this form, a PDF file will be generated which can be submitted to the agency in question.
+                    </p>
+                    <p>
+                        The agency has 30 days to process your request. If your request is not processed within this time frame, or your request is denied, you may be able to file a
+                        review request. For more information, see <a href={'/cth/review'}>here</a>.
                     </p>
                 </div>
                 {

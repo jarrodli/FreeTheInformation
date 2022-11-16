@@ -2,10 +2,9 @@ import { FormikValues }                                  from 'formik'
 import { promises as fs }                                from 'fs'
 import { PDFDocument, PDFForm }                          from 'pdf-lib'
 import React, { FunctionComponent, useEffect, useState } from 'react'
-import FOIForm                                           from '../../../components/GenericForm'
+import FOIForm, { formTextCss }                          from '../../../components/GenericForm'
 import PdfViewer                                         from '../../../components/PdfViewer'
-import { textCss }             from '../../guide/Guide'
-import { Form, headerTextCss } from '../../nsw/apply'
+import { Form, headerTextCss }                           from '../../nsw/apply'
 
 
 interface Props {
@@ -240,13 +239,14 @@ const CthReviewForm: FunctionComponent<Props> = ({ data }) => {
             new Blob([pdfBytes], { type: 'application/pdf' })
         )
         setDownloadUrl(docUrl)
+        window.scrollTo(0, 0)
     }
 
     const completedFormText = () => {
-        return <p className={textCss}>
+        return <p className={formTextCss}>
             A completed FOI review request form has been generated. Please sign it, attach any relevant payment
-            information, and email it
-        </p> //TODO: fix
+            information, and email it to <a href={'mailto:foifr@oaic.gov.au'}>foifr@oaic.gov.au</a>
+        </p>
     }
 
 
@@ -254,23 +254,34 @@ const CthReviewForm: FunctionComponent<Props> = ({ data }) => {
         <div className="p-20 max-w-5xl bg-white ">
             <div>
                 <div>
-                    <h1 className={headerTextCss}>Make an FOI request in New South Wales</h1>
+                    <h1 className={headerTextCss}>Review an FOI request - Commonwealth </h1>
                 </div>
                 <div className="py-10 space-y-6">
                     <p>
-                        Use this form if you want to make a Freedom of Information (FOI) request in New South Wales under the
-                        <i> Government Information (Public Access) Act 2009</i> (GIPA Act).
+                        Use this form if you want the outcome of your Freedom of Information (FOI) request to be
+                        reviewed in the Commonwealth under s 93A of the
+                        <i> Freedom of Information Act 1982 (Cth)</i> by the Office of the Australian Information
+                        Commissioner.
                     </p>
                     <p>
-                        After completing this form, a PDF file will be generated which can be submitted to the agency in question.
+                        In an OAIC review, the Information Commissioner (IC) will conduct a merit review (e.g., look at
+                        your request and reconsiders it and
+                        determine what the correct decision should have been.
                     </p>
                     <p>
-                        The agency has 20 working days to process your request. If your request is not processed within this time frame, or your request is denied, you may be able to file a
-                        review request. For more information, see <a href={'/nsw/review'}>here</a>.
+                        If your application was <b>denied</b>, you have <b>60 days</b> from the time you received the
+                        outcome of your review to file a request with the IPC.
+                    </p>
+                    <p>
+                        If your application was <b>partially allowed</b>, you have <b>30 days</b> to apply for a review.
+                    </p>
+                    <p>
+                        An OAIC review is <i>free</i>.
                     </p>
                 </div>
                 {
-                    downloadUrl && pdfFile ? <PdfViewer pdfDownloadUrl={downloadUrl} pdfFile={pdfFile} completedFormText={completedFormText}/> :
+                    downloadUrl && pdfFile ? <PdfViewer pdfDownloadUrl={downloadUrl} pdfFile={pdfFile}
+                                                        completedFormText={completedFormText}/> :
                     <FOIForm
                         formValues={formValues}
                         handleOnSubmit={handleSubmit}/>

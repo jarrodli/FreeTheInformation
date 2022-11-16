@@ -45,7 +45,13 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                 <form onSubmit={handleSubmit} className="flex flex-col ">
                     {
                         formValues.map((formEntry, idx) => {
+                            if (formEntry.if && values[formEntry.if.formValue] !== formEntry.if.type) {
+                                return
+                            }
                             if (formEntry.type === 'header') {
+                                if (formEntry.caption) {
+                                    return <p className={captionTextCss}>{formEntry.caption}</p>
+                                }
                                 return (
                                     <div className="pb-2 border-b-2 border-black mb-4">
                                         <h2 className={`${headerTextCss}`}>{formEntry.displayValue}</h2>
@@ -55,9 +61,7 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                             if (!formEntry.formValue) {
                                 return
                             }
-                            if (formEntry.if && values[formEntry.if.formValue] !== formEntry.if.type) {
-                                return
-                            }
+
                             switch (formEntry.type) {
                                 case 'input': {
                                     return (
@@ -109,7 +113,7 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                                         return
                                     }
                                     return (
-                                        <div className={"py-3"}>
+                                        <div key={idx}  className={"py-3"}>
                                             <label htmlFor={formEntry.formValue} className={formTextCss}>
                                                 {formEntry.displayValue}
                                             </label>
@@ -124,9 +128,9 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                                                 className="mt-3 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                             >
                                                 {
-                                                    formEntry.options.map((entry) => {
+                                                    formEntry.options.map((entry, entryIdx) => {
                                                          return (
-                                                                <option value={entry.formValue}>
+                                                                <option key={entryIdx} value={entry.formValue}>
                                                                     {entry.displayValue}
                                                                 </option>
                                                         )

@@ -2,9 +2,8 @@ import { FormikValues }                                  from 'formik'
 import { promises as fs }                                from 'fs'
 import { PDFDocument, PDFForm }                          from 'pdf-lib'
 import React, { FunctionComponent, useEffect, useState } from 'react'
-import FOIForm                                           from '../../../components/GenericForm'
+import FOIForm, { formTextCss }                          from '../../../components/GenericForm'
 import PdfViewer                                         from '../../../components/PdfViewer'
-import { textCss }             from '../../guide/Guide'
 import { Form, headerTextCss } from '../apply'
 
 interface Props {
@@ -236,10 +235,11 @@ const NSWReviewForm: FunctionComponent<Props> = ({ data }) => {
             new Blob([pdfBytes], { type: 'application/pdf' })
         )
         setDownloadUrl(docUrl)
+        window.scrollTo(0, 0)
     }
 
     const completedFormText = () => {
-        return <p className={textCss}>
+        return <p className={formTextCss}>
             A completed FOI review request form has been generated. Please sign it, attach any relevant payment
             information, and email it to <a href={'mailto:ipcinfo@ipc.nsw.gov.au'}>ipcinfo@ipc.nsw.gov.au</a>
         </p>
@@ -247,15 +247,26 @@ const NSWReviewForm: FunctionComponent<Props> = ({ data }) => {
 
 
     return (
-        <div className="p-20 max-w-5xl bg-white ">
+        <div className="p-20 max-w-5xl bg-white">
             <div>
                 <div>
-                    <h1 className={headerTextCss}>Make an FOI request in New South Wales</h1>
+                    <h1 className={headerTextCss}>Review an FOI request in New South Wales</h1>
                 </div>
                 <div className="py-10 space-y-6">
                     <p>
-                        Use this form if you want to make a Freedom of Information (FOI) request in New South Wales under the
-                        <i> Government Information (Public Access) Act 2009</i> (GIPA Act).
+                        Use this form if you want the outcome of your Freedom of Information (FOI) request to be reviewed in New South Wales under s 92 of the
+                        <i> Government Information (Public Access) Act 2009</i> (GIPA Act) by the NSW Information Commissioner.
+                    </p>
+                    <p>
+                        An external review involves the NSW Information Commissioner reviewing your initial FOI application, as well as the process the agency
+                        followed in deciding your application. If the Information Commissioner finds some issue with that process e.g., if the agency didn't comply
+                        with their requirements under the GIPA Act, they will advise the agency to reconsider your application.
+                    </p>
+                    <p>
+                        You have <b>40 working days</b> from the time you received the outcome of your review to file a request with the IPC.
+                    </p>
+                    <p>
+                        An external review is <i>free</i>.
                     </p>
                 </div>
                 {

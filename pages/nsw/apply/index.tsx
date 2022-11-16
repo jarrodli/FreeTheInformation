@@ -2,9 +2,8 @@ import { FormikValues }                                  from 'formik'
 import { promises as fs }                                from 'fs'
 import { PDFDocument, PDFForm }                          from 'pdf-lib'
 import React, { FunctionComponent, useEffect, useState } from 'react'
-import FOIForm                                           from '../../../components/GenericForm'
+import FOIForm, { formTextCss }                          from '../../../components/GenericForm'
 import PdfViewer                                         from '../../../components/PdfViewer'
-import { textCss }                                       from '../../guide/Guide'
 
 interface Props {
     data: string
@@ -20,7 +19,7 @@ export interface Form {
     if?: { formValue: string, type: string }
 }
 
-export const headerTextCss = "text-4xl font-inter font-semibold"
+export const headerTextCss = 'text-4xl font-inter font-semibold'
 
 export const formValues: Form[] = [
     {
@@ -67,7 +66,7 @@ export const formValues: Form[] = [
     {
         displayValue: 'You are required to provide some proof of identity.',
         formValue   : 'Proof of Identity',
-        type        : 'file',
+        type        : 'dropdown',
         options     : [
             { formValue: 'Australian drivers licence', displayValue: 'Australian Drivers Licence' },
             { formValue: 'Current Australian passport', displayValue: 'Current Australian passport' },
@@ -84,10 +83,11 @@ export const formValues: Form[] = [
     },
     {
         displayValue: 'What information are you looking for?', formValue: 'Application', type: 'textarea',
-        caption     : 'Please provide as much information as possible. This includes things like date ranges, where the documents may be held or the subject matter the documents relate to.',
+        caption     : 'Please provide as much information as possible. This includes things like date ranges, where the documents may be held or the subject matter the documents relate to.'
     },
     {
         displayValue: 'Are you seeking personal information?',
+        caption     : 'Personal information is information about yourself or another individual. For more information, see here: https://www.ipc.nsw.gov.au/fact-sheet-public-officials-and-personal-information-under-gipa-act',
         formValue   : 'Personal information',
         type        : 'dropdown',
         options     : [{ formValue: 'Yes', displayValue: 'Yes' }, { formValue: 'No', displayValue: 'No' }] // TODO:
@@ -96,6 +96,13 @@ export const formValues: Form[] = [
                                                                                                            // values
                                                                                                            // are
                                                                                                            // correct
+    },
+    {
+        displayValue: '',
+        caption     : 'If you are requesting personal information about someone other than yourself, the Privacy and Personal Information Protection Act 1998 (NSW) applies. This may mean that your application will be denied unless it is of public interest.',
+        formValue   : '',
+        type        : 'header',
+        if          : { formValue: 'Personal Information', type: 'Yes' }
     },
     {
         displayValue: 'Have you made an application for information at another agency requesting the same information? If yes, please enter the agency below.',
@@ -120,7 +127,7 @@ export const formValues: Form[] = [
     },
     {
         displayValue: 'A $30 payment is required. How would you like to pay for this?',
-        caption: 'Please do not send cash with your application.',
+        caption     : 'Please do not send cash with your application.',
         formValue   : 'Payment',
         type        : 'dropdown',
         options     : [
@@ -134,26 +141,21 @@ export const formValues: Form[] = [
         caption     : 'Under section 54 of the GIPA Act, if the information you are requesting contains information about another person, business or agency, the agency may be required to consult with third parties before deciding your application. The purpose of this consultation is for the agency to determine whether the third party has an objection to disclosure of some or all of the information being requested.',
         formValue   : 'Third parties',
         type        : 'dropdown',
-        options     : [{ formValue: 'Yes', displayValue: 'Yes' }, { formValue: 'No', displayValue: 'No' }] // TODO:
-        // check
-        // form
-        // values
-        // are
-        // correct
+        options     : [{ formValue: 'Yes 3', displayValue: 'Yes' }, { formValue: 'No 3', displayValue: 'No' }]
     },
     {
         displayValue: 'Do you consent to this information being released on the Information and Privacy Commissioner\'s website?',
         caption     : 'Details about this application may be recorded and published on the Information and Privacy Commission website. You may object to this. For an example of what a disclosure log looks like, see: https://www.ipc.nsw.gov.au/sites/default/files/2022-03/IPC_Disclosure_Log_March%202022.pdf',
         formValue   : 'Disclosure Log',
         type        : 'dropdown',
-        options     : [{ formValue: 'Yes 3', displayValue: 'Yes' }, { formValue: 'No 3', displayValue: 'No' }]
+        options     : [{ formValue: 'Yes_disc', displayValue: 'Yes' }, { formValue: 'No_disc', displayValue: 'No' }]
     }, // what does this map to?
     {
         displayValue: 'Are you suffering from financial hardship?',
         caption     : 'If you are suffering financial, you may be entitled ot a 50% reduction in your processing charge ($30/hour). Please attach proof, such as your pensioners card or a Centrelink card.',
         formValue   : 'Financial Hardship',
         type        : 'dropdown',
-        options     : [{ formValue: 'Yes 3', displayValue: 'Yes' }, { formValue: 'No 3', displayValue: 'No' }]
+        options     : [{ formValue: 'Financial hardship', displayValue: 'Yes' }, { formValue: '', displayValue: 'No' }]
     },
     {
         displayValue: 'Does this FOI request provide special benefit to the public?',
@@ -256,6 +258,7 @@ const NSWForm: FunctionComponent<Props> = ({ data }) => {
                         return
                     }
                     formEntry.options.forEach((option) => {
+                        if (!option.formValue) return
                         if (values[formEntry.formValue] === option.formValue) {
                             pdfForm.getCheckBox(values[formEntry.formValue])
                                 .check()
@@ -275,11 +278,13 @@ const NSWForm: FunctionComponent<Props> = ({ data }) => {
             new Blob([pdfBytes], { type: 'application/pdf' })
         )
         setDownloadUrl(docUrl)
+        window.scrollTo(0, 0)
     }
 
     const completedFormText = () => {
-        return <p className={textCss}>
-            A completed FOI request form has been generated. Please sign it, attach any relevant payment information, and send it to the relevant agency.
+        return <p className={formTextCss}>
+            A completed FOI request form has been generated. Please sign it, attach any relevant payment information,
+            and send it to the relevant agency.
         </p>
     }
 
@@ -292,19 +297,23 @@ const NSWForm: FunctionComponent<Props> = ({ data }) => {
                 </div>
                 <div className="py-10 space-y-6">
                     <p>
-                        Use this form if you want to make a Freedom of Information (FOI) request in New South Wales under the
+                        Use this form if you want to make a Freedom of Information (FOI) request in New South Wales
+                        under the
                         <i> Government Information (Public Access) Act 2009</i> (GIPA Act).
                     </p>
                     <p>
-                        After completing this form, a PDF file will be generated which can be submitted to the agency in question.
+                        After completing this form, a PDF file will be generated which can be submitted to the agency in
+                        question.
                     </p>
                     <p>
-                        The agency has 20 working days to process your request. If your request is not processed within this time frame, or your request is denied, you may be able to file a
+                        The agency has 20 working days to process your request. If your request is not processed within
+                        this time frame, or your request is denied, you may be able to file a
                         review request. For more information, see <a href={'/nsw/review'}>here</a>.
                     </p>
                 </div>
                 {
-                    downloadUrl && pdfFile ? <PdfViewer pdfDownloadUrl={downloadUrl} pdfFile={pdfFile} completedFormText={completedFormText}/> :
+                    downloadUrl && pdfFile ? <PdfViewer pdfDownloadUrl={downloadUrl} pdfFile={pdfFile}
+                                                        completedFormText={completedFormText}/> :
                     <FOIForm
                         formValues={formValues}
                         handleOnSubmit={handleSubmit}/>
