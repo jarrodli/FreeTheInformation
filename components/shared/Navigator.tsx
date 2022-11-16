@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { buttonCss, State, textCss } from "../../Guide";
+import { buttonCss, State, textCss } from "../../pages/guide/Guide";
 
 interface Props {
     formState: State;
