@@ -241,7 +241,7 @@ const NSWReviewForm: FunctionComponent<Props> = ({ data }) => {
     const completedFormText = () => {
         return <p className={formTextCss}>
             A completed FOI review request form has been generated. Please sign it, attach any relevant payment
-            information, and email it to <a href={'mailto:ipcinfo@ipc.nsw.gov.au'}>ipcinfo@ipc.nsw.gov.au</a>
+            information, and email it to <a className={"transition duration-500 italic text-blue-500 hover:text-gray-400 hover:underline hover:decoration-2 hover:decoration-blue-500 hover:cursor-pointer"} href={'mailto:ipcinfo@ipc.nsw.gov.au'}>ipcinfo@ipc.nsw.gov.au</a>
         </p>
     }
 
@@ -253,19 +253,19 @@ const NSWReviewForm: FunctionComponent<Props> = ({ data }) => {
                     <h1 className={headerTextCss}>Review an FOI request in New South Wales</h1>
                 </div>
                 <div className="py-10 space-y-6">
-                    <p>
+                    <p className={'text-black'}>
                         Use this form if you want the outcome of your Freedom of Information (FOI) request to be reviewed in New South Wales under s 92 of the
                         <i> Government Information (Public Access) Act 2009</i> (GIPA Act) by the NSW Information Commissioner.
                     </p>
-                    <p>
+                    <p className={'text-black'}>
                         An external review involves the NSW Information Commissioner reviewing your initial FOI application, as well as the process the agency
                         followed in deciding your application. If the Information Commissioner finds some issue with that process e.g., if the agency didn't comply
                         with their requirements under the GIPA Act, they will advise the agency to reconsider your application.
                     </p>
-                    <p>
+                    <p className={'text-black'}>
                         You have <b>40 working days</b> from the time you received the outcome of your review to file a request with the IPC.
                     </p>
-                    <p>
+                    <p className={'text-black'}>
                         An external review is <i>free</i>.
                     </p>
                 </div>

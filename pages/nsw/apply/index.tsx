@@ -296,19 +296,19 @@ const NSWForm: FunctionComponent<Props> = ({ data }) => {
                     <h1 className={headerTextCss}>Make an FOI request in New South Wales</h1>
                 </div>
                 <div className="py-10 space-y-6">
-                    <p>
+                    <p className={'text-black'}>
                         Use this form if you want to make a Freedom of Information (FOI) request in New South Wales
                         under the
                         <i> Government Information (Public Access) Act 2009</i> (GIPA Act).
                     </p>
-                    <p>
+                    <p className={'text-black'}>
                         After completing this form, a PDF file will be generated which can be submitted to the agency in
                         question.
                     </p>
-                    <p>
+                    <p className={'text-black'}>
                         The agency has 20 working days to process your request. If your request is not processed within
                         this time frame, or your request is denied, you may be able to file a
-                        review request. For more information, see <a href={'/nsw/review'}>here</a>.
+                        review request. For more information, see <a className={"transition duration-500 italic text-blue-500 hover:text-gray-400 hover:underline hover:decoration-2 hover:decoration-blue-500 hover:cursor-pointer"} href={'/nsw/review'}>here</a>.
                     </p>
                 </div>
                 {

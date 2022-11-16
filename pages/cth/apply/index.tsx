@@ -19,7 +19,7 @@ const formValues: Form[] = [
     },
     {
         displayValue: 'Agency that you are applying to',
-        formValue   : 'Agency',
+        formValue   : 'agency',
         type        : 'input'
     },
     {
@@ -83,11 +83,7 @@ const formValues: Form[] = [
             {formValue: 'app_mr', displayValue: 'Dr'},
         ]
     },
-    {
-        displayValue: '3. Information requested',
-        formValue   : '',
-        type        : 'header'
-    },
+
     {
         displayValue: 'Full Name',
         formValue   : 'app_full_name',
@@ -103,7 +99,7 @@ const formValues: Form[] = [
         ]
     },
     {
-        displayValue: 'Information requested',
+        displayValue: '3. Information requested',
         formValue   : '',
         type        : 'header'
     },
@@ -201,16 +197,16 @@ const CthApplyForm: FunctionComponent<Props> = ({ data }) => {
                     <h1 className={headerTextCss}>Make an FOI request to a Commonwealth Agency</h1>
                 </div>
                 <div className="py-10 space-y-6">
-                    <p>
+                    <p className={'text-black'}>
                         Use this form if you want to make a Freedom of Information (FOI) request for a Commonwealth Agency under the
-                        <i> Freedom of Information Act 1982 (Cth) (FOI Act)</i> (FOI Act).
+                        <i> Freedom of Information Act 1982</i> (Cth) (FOI Act).
                     </p>
-                    <p>
+                    <p className={'text-black'}>
                         After completing this form, a PDF file will be generated which can be submitted to the agency in question.
                     </p>
-                    <p>
-                        The agency has 30 days to process your request. If your request is not processed within this time frame, or your request is denied, you may be able to file a
-                        review request. For more information, see <a href={'/cth/review'}>here</a>.
+                    <p className={'text-black'}>
+                        The agency has <b>30 days</b> to process your request. If your request is not processed within this time frame, or your request is denied, you may be able to file a
+                        review request. For more information, see <a className="transition duration-500 italic text-blue-500 hover:text-gray-400 hover:underline hover:decoration-2 hover:decoration-blue-500 hover:cursor-pointer" href={'/cth/review'}>here</a>.
                     </p>
                 </div>
                 {

@@ -262,9 +262,6 @@ const QldReviewForm: FunctionComponent<Props> = ({ data }) => {
             }
             pdfDoc = await PDFDocument.load(data)
             pdfForm = pdfDoc.getForm()
-            // const fields = pdfForm.getFields()
-            // const fieldNames = fields.map((field) => field.getName())
-            // console.log(fieldNames)
         }
 
         processForm()
@@ -316,7 +313,7 @@ const QldReviewForm: FunctionComponent<Props> = ({ data }) => {
     const completedFormText = () => {
         return <p className={formTextCss}>
             A completed FOI review request form has been generated. Please sign it, attach any relevant payment
-            information, and email it to <a href={'mailto:administration@oic.qld.gov.au'}>administration@oic.qld.gov.au</a>
+            information, and email it to <a className={"transition duration-500 italic text-blue-500 hover:text-gray-400 hover:underline hover:decoration-2 hover:decoration-blue-500 hover:cursor-pointer"} href={'mailto:administration@oic.qld.gov.au'}>administration@oic.qld.gov.au</a>
         </p>
     }
 
@@ -328,17 +325,19 @@ const QldReviewForm: FunctionComponent<Props> = ({ data }) => {
                     <h1 className={headerTextCss}>Review an FOI request in Queensland</h1>
                 </div>
                 <div className="py-10 space-y-6">
-                    <p>
+                    <p className={'text-black'}>
                         Use this form if you want the outcome of your Freedom of Information (FOI) request to be reviewed in Queensland  under s 92 of the
-                        <i> Right to Information Act 2009</i> (RTI Act) by the Qld Office of the Information Commissioner.
+                        <i> Right to Information Act 2009</i> (RTI Act) by the Qld Office of the Information Commissioner (OIC).
                     </p>
-                    <p>
-
+                    <p className={'text-black'}>
+                        The OIC will conduct a merit review (e.g., look at
+                        your request and reconsiders it and
+                        determine what the correct decision should have been.
                     </p>
-                    <p>
+                    <p className={'text-black'}>
                         You have <b>20 working days</b> from the time you received the outcome of your review to file a request.
                     </p>
-                    <p>
+                    <p className={'text-black'}>
                         An external review is <i>free</i>.
                     </p>
                 </div>
