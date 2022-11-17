@@ -1,5 +1,5 @@
+import Image                     from 'next/image'
 import { ChangeEvent, useState } from 'react'
-
 
 const nswNavigation = [
     { name: 'Make a Request', href: '/nsw/apply' },
@@ -35,8 +35,8 @@ const Header = () => {
     return (
         <header>
             <nav className="flex flex-row items-center mx-auto w-screen border-b border-white px-12" aria-label="Top">
-                <div className="flex w-full items-center justify-between py-6">
-                    <div className="ml-12 w-full space-x-8 lg:block">
+                <div className="flex w-full items-center py-6 space-x-10">
+                    <div className="ml-12 space-x-8 lg:block">
                         {
                             nav.map((n) => {
                                 return (<a key={n.name} href={n.href}
@@ -45,6 +45,10 @@ const Header = () => {
                                 </a>)
                             })
                         }
+                    </div>
+                    <div>
+                        <Image onClick={() => window.location.assign('https://github.com/jarrodli/FreeTheInformation')}
+                               src={'/github.png'} alt={'go to Github'} width={32} height={32}/>
                     </div>
                 </div>
                 <div className={'flex flex-row w-screen items-center justify-end'}>

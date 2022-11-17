@@ -78,7 +78,7 @@ const Info4: FunctionComponent<{}> = () => {
                                 }
                                 className="transition duration-500 italic text-blue-500 hover:text-gray-400 hover:underline hover:decoration-2 hover:decoration-blue-500 hover:cursor-pointer"
                             >
-                                www.naa.gov.au/
+                                www.naa.gov.au
                             </span>
                         </p>
                     </li>
@@ -93,7 +93,7 @@ const Info4: FunctionComponent<{}> = () => {
                                 }
                                 className="transition duration-500 italic text-blue-500 hover:text-gray-400 hover:underline hover:decoration-2 hover:decoration-blue-500 hover:cursor-pointer"
                             >
-                               www.records.nsw.gov.au/
+                               www.records.nsw.gov.au
                             </span>
                         </p>
                     </li>
