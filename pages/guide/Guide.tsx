@@ -1,3 +1,4 @@
+import Lottie from "lottie-react";
 import { useRouter } from "next/router";
 import React, { FunctionComponent, use, useEffect, useState } from "react";
 import Ineligible from "../../components/Ineligible";
@@ -11,6 +12,7 @@ import Step4 from "../../components/steps/Step4";
 import Step5 from "../../components/steps/Step5";
 import Step6 from "../../components/steps/Step6";
 import Step7 from "../../components/steps/Step7";
+import animation from "../../public/loading.json";
 
 export const buttonCss =
     "border-2 py-9 px-9 border-white hover:bg-gray-100 hover:bg-opacity-20 rounded-full bg-no-repeat bg-contain disabled:opacity-50";
@@ -74,13 +76,18 @@ const Guide: FunctionComponent<Props> = ({}) => {
         }
     };
 
-    const progressToForm = (newPage: number = 0, bypass: boolean = false) => {
+    const progressToForm = (newPage: number = 0) => {
         if (
-            bypass ||
             (formState.jurisdiction === "CTH" && newPage > 7) ||
             (formState.jurisdiction !== "CTH" && newPage > 5)
         ) {
-            router.push(`${formState.jurisdiction.toLowerCase()}/apply`);
+            setTimeout(
+                () =>
+                    router.push(
+                        `${formState.jurisdiction.toLowerCase()}/apply`
+                    ),
+                2000
+            );
         }
     };
 
@@ -251,7 +258,7 @@ const Guide: FunctionComponent<Props> = ({}) => {
                             )}
                             {formState.page > 1 && (
                                 <button
-                                    onClick={() => progressToForm(0, true)}
+                                    onClick={() => handleSetPage(8)}
                                     className={`${textBaseCss} text-mg md:text-xl italic hover:underline hover:decoration-2 hover:cursor-pointer`}
                                 >
                                     {ineligible
@@ -268,7 +275,9 @@ const Guide: FunctionComponent<Props> = ({}) => {
                         handleModalClose={handleModalClose}
                     />
                 </>
-            ) : null}
+            ) : (
+                <Lottie animationData={animation} className="my-64 h-72 w-72" />
+            )}
         </div>
     );
 };
