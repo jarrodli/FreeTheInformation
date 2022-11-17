@@ -4,7 +4,7 @@ const Info7: FunctionComponent<{}> = () => {
     return (
         <div className="p-6 space-y-6">
             <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                Some agency's are exempt from requirements under Schedule 2 Part
+                Some agencies are exempt from requirements under Schedule 2 Part
                 1 of the{" "}
                 <span
                     onClick={() =>
