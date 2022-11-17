@@ -82,7 +82,7 @@ export const formValues: Form[] = [
         type        : 'header'
     },
     {
-        displayValue: 'What information are you looking for?', formValue: 'Application', type: 'textarea',
+        displayValue: 'What information are you looking for?', formValue: 'Application 1', type: 'textarea',
         caption     : 'Please provide as much information as possible. This includes things like date ranges, where the documents may be held or the subject matter the documents relate to.'
     },
     {
@@ -159,7 +159,7 @@ export const formValues: Form[] = [
     },
     {
         displayValue: 'Does this FOI request provide special benefit to the public?',
-        caption     : 'If your FOI request provides special benefit to the public, you may be entitled to a 50% reduction in your processing charge ($30/hour).',
+        caption     : 'If your FOI request provides special benefit to the public, you may be entitled to a 50% reduction in your processing charge ($30/hour). The options here are from Shoebridge v Forestry Corporation [2016] NSWCATAD 93 at 23, which outlined some acceptable reasons.',
         formValue   : 'Special benefit to the public',
         type        : 'dropdown',
         options     : [//FROM Shoebridge v Forestry Corporation [2016]
@@ -230,10 +230,6 @@ const NSWForm: FunctionComponent<Props> = ({ data }) => {
                 case 'input': {
                     if (!values[formEntry.formValue]) {
                         return
-                    }
-                    if (formEntry.formValue === 'Application') {
-                        pdfForm.getTextField('Application 1').setText(values[formEntry.formValue])
-                        break
                     }
                     if (formEntry.formValue === 'Special benefit to the public' && values[formEntry.formValue]) {
                         pdfForm.getCheckBox('Special benefit to the public').check()

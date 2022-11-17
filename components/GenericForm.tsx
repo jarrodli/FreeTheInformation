@@ -155,7 +155,6 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                                     )
                                 }
                                 default: {
-                                    console.log(formEntry.type)
                                     return (
                                         <div key={idx}>
 
