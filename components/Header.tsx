@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 
 const nswNavigation = [
@@ -18,6 +19,7 @@ const qldNavigation = [
 const nav = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
+    { name: "Code", href: "https://github.com/jarrodli/FreeTheInformation" },
 ];
 
 function classNames(...classes: string[]) {

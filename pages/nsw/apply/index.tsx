@@ -71,14 +71,11 @@ export const formValues: Form[] = [
         type: "input",
     },
     {
-        displayValue:
-            "Do you agree to get correspondence in regards to this request?",
-        formValue: "Agree to correspondence",
-        type: "dropdown",
-        options: [
-            { formValue: "Yes", displayValue: "Yes" },
-            { formValue: "No", displayValue: "No" },
-        ],
+        displayValue: "What information are you looking for?",
+        formValue: "Application 1",
+        type: "textarea",
+        caption:
+            "Please provide as much information as possible. This includes things like date ranges, where the documents may be held or the subject matter the documents relate to.",
     },
     {
         displayValue: "You are required to provide some proof of identity.",
@@ -222,41 +219,39 @@ export const formValues: Form[] = [
         displayValue:
             "Does this FOI request provide special benefit to the public?",
         caption:
-            "If your FOI request provides special benefit to the public, you may be entitled to a 50% reduction in your processing charge ($30/hour).",
+            "If your FOI request provides special benefit to the public, you may be entitled to a 50% reduction in your processing charge ($30/hour). The options here are from Shoebridge v Forestry Corporation [2016] NSWCATAD 93 at 23, which outlined some acceptable reasons.",
         formValue: "Special benefit to the public",
         type: "dropdown",
         options: [
             //FROM Shoebridge v Forestry Corporation [2016]
             // NSWCATAD 93 (Shoebridge) at 23
             {
-                formValue:
-                    "My application refers to public health and safety;\n",
+                formValue: "My application refers to public health and safety",
                 displayValue:
-                    "My application refers to public health and safety;\n",
+                    "My application refers to public health and safety",
+            },
+            {
+                formValue: "My application refers to the use of public funds",
+                displayValue:
+                    "My application refers to the use of public funds",
             },
             {
                 formValue:
-                    "My application refers to the use of public funds;\n",
+                    "My application seeks to examine proper record keeping and legislative compliance generally by the agency in the exercise of its functions",
                 displayValue:
-                    "My application refers to the use of public funds;\n",
+                    "My application seeks to examine proper record keeping and legislative compliance generally by the agency in the exercise of its functions",
             },
             {
                 formValue:
-                    "My application seeks to examine proper record keeping and legislative compliance generally by the agency in the exercise of its functions;\n",
+                    "My application seeks to examine the existence of a special interest group and the benefits of accountability and transparency of decision-making by government, in particular Members of Parliament",
                 displayValue:
-                    "My application seeks to examine proper record keeping and legislative compliance generally by the agency in the exercise of its functions;\n",
+                    "My application seeks to examine the existence of a special interest group and the benefits of accountability and transparency of decision-making by government, in particular Members of Parliament",
             },
             {
                 formValue:
-                    "My application seeks to examine the existence of a special interest group and the benefits of accountability and transparency of decision-making by government, in particular Members of Parliament; and\n",
+                    "My application seeks to examine the need to ensure that citizens have sufficient information to enable them to actively participate and contribute to consideration of relevant issues through submissions or enquiry",
                 displayValue:
-                    "My application seeks to examine the existence of a special interest group and the benefits of accountability and transparency of decision-making by government, in particular Members of Parliament; and\n",
-            },
-            {
-                formValue:
-                    "My application seeks to examine the need to ensure that citizens have sufficient information to enable them to actively participate and contribute to consideration of relevant issues through submissions or enquiry.",
-                displayValue:
-                    "My application seeks to examine the need to ensure that citizens have sufficient information to enable them to actively participate and contribute to consideration of relevant issues through submissions or enquiry.",
+                    "My application seeks to examine the need to ensure that citizens have sufficient information to enable them to actively participate and contribute to consideration of relevant issues through submissions or enquiry",
             },
             {
                 formValue: "Other",
@@ -306,12 +301,6 @@ const NSWForm: FunctionComponent<Props> = ({ data }) => {
                 case "input": {
                     if (!values[formEntry.formValue]) {
                         return;
-                    }
-                    if (formEntry.formValue === "Application") {
-                        pdfForm
-                            .getTextField("Application 1")
-                            .setText(values[formEntry.formValue]);
-                        break;
                     }
                     if (
                         formEntry.formValue ===

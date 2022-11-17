@@ -26,7 +26,7 @@ const formValues: Form[] = [
         formValue: "title",
         type: "dropdown",
         options: [
-            { formValue: "mr", displayValue: "Mr" },
+            { formValue: "Mr", displayValue: "Mr" },
             { formValue: "Mrs", displayValue: "Mrs" },
             { formValue: "Ms", displayValue: "Ms" },
             { formValue: "Dr", displayValue: "Dr" },

@@ -115,6 +115,21 @@ export default function About() {
                         informative FOI request.
                     </p>
                     <p className={"font-inter text-black"}>
+                        Project created and developed using Next.js by Jarrod Li
+                        and Stephanie Tong. For the source code, see{" "}
+                        <span
+                            onClick={() =>
+                                window.open(
+                                    "https://github.com/jarrodli/FreeTheInformation"
+                                )
+                            }
+                            className="transition duration-500 text-blue-500 hover:text-gray-400 hover:underline hover:decoration-2 hover:decoration-blue-500 hover:cursor-pointer"
+                        >
+                            here
+                        </span>
+                        .{" "}
+                    </p>
+                    <p className={"font-inter text-black"}>
                         <i>
                             FreeTheInformation does not claim to provide legal
                             advice, are not intended to be a substitute for
