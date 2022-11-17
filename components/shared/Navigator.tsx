@@ -20,7 +20,10 @@ const Navigator: FunctionComponent<Props> = ({
                 className={`${buttonCss} bg-arrowLeft`}
             />
             <button
-                onClick={() => handleClearState()}
+                onClick={(e) => {
+                    e.preventDefault;
+                    handleClearState();
+                }}
                 className={`border-2 ${textCss}`}
             >
                 Restart

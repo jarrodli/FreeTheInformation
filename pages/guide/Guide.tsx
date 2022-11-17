@@ -68,24 +68,55 @@ const defaultState: State = {
         status: -1,
         page: 5,
     },
-    conditionallyExemptDocument: {
+    exemptAgency: {
         status: -1,
         page: 6,
     },
-    exemptAgency: {
+    conditionallyExemptDocument: {
         status: -1,
         page: 7,
     },
 };
 
 const Guide: FunctionComponent<Props> = ({}) => {
-    const [formState, setFormState] = useState<State>(defaultState);
+    const [formState, setFormState] = useState<State>({ ...defaultState });
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [ineligible, setIneligible] = useState<number>(0);
     const router = useRouter();
 
+    useEffect(() => console.log(defaultState), [defaultState]);
+
     const handleClearState = () => {
-        setFormState(defaultState);
+        setFormState({
+            jurisdiction: "",
+            page: 1,
+            deniedOrDelayed: {
+                status: -1,
+                page: 2,
+            },
+            publiclyAvailable: {
+                status: -1,
+                page: 3,
+            },
+            historicInformation: {
+                status: -1,
+                page: 4,
+            },
+            fullExemptDocument: {
+                status: -1,
+                page: 5,
+            },
+            exemptAgency: {
+                status: -1,
+                page: 6,
+            },
+            conditionallyExemptDocument: {
+                status: -1,
+                page: 7,
+            },
+        });
+        setIneligible(0);
+        console.log(defaultState);
     };
 
     const handleSetJurisdiction = (newJurisdiction: string) => {
@@ -116,7 +147,6 @@ const Guide: FunctionComponent<Props> = ({}) => {
 
     const checkEligibility = (oldPage: number, newPage: number) => {
         let eligibilityChanged = false;
-        console.log(formState);
         let determinedEligibility = ineligible;
 
         Object.values(formState).forEach((v) => {
@@ -145,8 +175,6 @@ const Guide: FunctionComponent<Props> = ({}) => {
         }
         setIneligible(determinedEligibility);
     };
-
-    useEffect(() => console.log(ineligible), [ineligible]);
 
     const handleSetPage = (newPage: number) => {
         const stateCpy = { ...formState };
