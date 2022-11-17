@@ -46,11 +46,11 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                             }
                             if (formEntry.type === 'header') {
                                 if (formEntry.caption) {
-                                    return <p className={captionTextCss}>{formEntry.caption}</p>
+                                    return <p key={idx} className={captionTextCss}>{formEntry.caption}</p>
                                 }
                                 return (
-                                    <div className="pb-2 border-b-2 border-black mb-4">
-                                        <h2 className={`${headerTextCss}`}>{formEntry.displayValue}</h2>
+                                    <div className="pb-2 border-b-2 border-black mb-4 mt-7">
+                                        <h2 key={idx} className={`${headerTextCss}`}>{formEntry.displayValue}</h2>
                                     </div>
                                 )
                             }
@@ -75,9 +75,6 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                                                 onBlur={handleBlur}
                                                 value={values[formEntry.formValue]}
                                             />
-                                            {errors[formEntry.formValue]
-                                             && touched[formEntry.formValue]
-                                             && errors[formEntry.formValue]}
                                         </div>
                                     )
                                 }
@@ -98,9 +95,6 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                                                 value={values[formEntry.formValue]} // TODO: split results based on
                                                                                     // word count
                                             />
-                                            {errors[formEntry.formValue]
-                                             && touched[formEntry.formValue]
-                                             && errors[formEntry.formValue]}
                                         </div>
                                     )
                                 }
@@ -109,7 +103,7 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                                         return
                                     }
                                     return (
-                                        <div key={idx}  className={"py-3"}>
+                                        <div key={idx} className={"py-3"}>
                                             <label htmlFor={formEntry.formValue} className={formTextCss}>
                                                 {formEntry.displayValue}
                                             </label>
@@ -134,10 +128,6 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                                                 }
                                             </select>
                                         </div>
-                                        //     {errors[formEntry.formValue]
-                                        //      && touched[formEntry.formValue]
-                                        //      && errors[formEntry.formValue]}
-                                        // </div>
                                     )
                                 }
                                 case 'file': {
@@ -161,16 +151,13 @@ const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
                                                     Attach a file</p>
                                                 <input type="file" className="opacity-0"/>
                                             </div>
-                                            {errors[formEntry.formValue]
-                                             && touched[formEntry.formValue]
-                                             && errors[formEntry.formValue]}
                                         </div>
                                     )
                                 }
                                 default: {
                                     console.log(formEntry.type)
                                     return (
-                                        <div>
+                                        <div key={idx}>
 
                                         </div>
                                     )

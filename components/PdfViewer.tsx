@@ -9,14 +9,6 @@ interface Props {
 }
 
 const PdfViewer: FunctionComponent<Props> = ({pdfDownloadUrl, pdfFile, completedFormText}) => {
-    console.log(pdfFile)
-    const [numPages, setNumPages] = useState(null);
-    const [pageNumber, setPageNumber] = useState(1);
-
-    const onDocumentLoadSuccess = ({ numPages }) => {
-        console.log('hi')
-        setNumPages(numPages);
-    }
 
 
     return (
@@ -36,9 +28,6 @@ const PdfViewer: FunctionComponent<Props> = ({pdfDownloadUrl, pdfFile, completed
                     View completed form
                 </button>
             </div>
-            {/*<Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess}>*/}
-            {/*    <Page pageNumber={pageNumber} />*/}
-            {/*</Document>*/}
         </div>
     )
 

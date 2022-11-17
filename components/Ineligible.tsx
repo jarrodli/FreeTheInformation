@@ -18,7 +18,7 @@ const Ineligible: FunctionComponent<Props> = ({
         switch (ppivot) {
             case 2:
                 return (
-                    <p className="text-xl text-center font-inter">
+                    <p className="text-xl text-center font-inter text-white">
                         {jurisdiction === "NSW" ? (
                             <span>
                                 If it has been less than 40 days since you were
@@ -98,7 +98,7 @@ const Ineligible: FunctionComponent<Props> = ({
                 );
             case 3:
                 return (
-                    <p className="text-xl text-center font-inter">
+                    <p className="text-xl text-center font-inter text-white">
                         As the information you are requesting is publicly
                         available, try searching for the data from the{" "}
                         {jurisdiction === "CTH" ? "Commonwealth" : jurisdiction}{" "}
@@ -121,7 +121,7 @@ const Ineligible: FunctionComponent<Props> = ({
                 );
             case 4:
                 return (
-                    <p className="text-xl text-center font-inter">
+                    <p className="text-xl text-center font-inter text-white">
                         Historical information is managed under the{" "}
                         {jurisdiction === "CTH" ? (
                             <span>
@@ -191,7 +191,7 @@ const Ineligible: FunctionComponent<Props> = ({
                 );
             case 5:
                 return (
-                    <p className="text-xl text-center font-inter">
+                    <p className="text-xl text-center font-inter text-white">
                         Under{" "}
                         {jurisdiction === "CTH" ? (
                             <span>
@@ -214,7 +214,7 @@ const Ineligible: FunctionComponent<Props> = ({
                                 <span
                                     onClick={() =>
                                         window.open(
-                                            "https://legislation.nsw.gov.au/view/html/inforce/current/act-2009-052"
+                                            "https://legislation.nsw.gov.au/view/html/inforce/2022-09-05/act-2009-052#sec.11"
                                         )
                                     }
                                     className="transition duration-500 italic text-blue-400 hover:text-white hover:underline hover:decoration-2 hover:decoration-blue-400 hover:cursor-pointer"
@@ -230,7 +230,7 @@ const Ineligible: FunctionComponent<Props> = ({
                                 <span
                                     onClick={() =>
                                         window.open(
-                                            "https://www.legislation.qld.gov.au/view/html/inforce/current/act-2009-013"
+                                            "https://www.legislation.qld.gov.au/view/html/inforce/current/act-2009-013#sec.47"
                                         )
                                     }
                                     className="transition duration-500 italic text-blue-400 hover:text-white hover:underline hover:decoration-2 hover:decoration-blue-400 hover:cursor-pointer"
@@ -247,7 +247,7 @@ const Ineligible: FunctionComponent<Props> = ({
             case 7:
                 return (
                     <div className="space-y-8">
-                        <p className="text-xl text-center font-inter">
+                        <p className="text-xl text-center font-inter text-white">
                             Under{" "}
                             <span>
                                 sections 11A(5) and 47B-47J of the{" "}
@@ -279,7 +279,7 @@ const Ineligible: FunctionComponent<Props> = ({
             case 6:
                 return (
                     <div className="space-y-8">
-                        <p className="text-xl text-center font-inter">
+                        <p className="text-xl text-center font-inter text-white">
                             Under{" "}
                             <span>
                                 sections 7 and 11(4) of the{" "}
@@ -306,7 +306,7 @@ const Ineligible: FunctionComponent<Props> = ({
 
     return (
         <div>
-            <div className="my-16 flex mx-auto place-content-center">
+            <div className="my-16 flex mx-auto place-content-center text-white">
                 <div className="space-x-8 space-y-8 flex flex-col items-center max-w-prose">
                     {handlePivot(pivot - 1)}
                     <button

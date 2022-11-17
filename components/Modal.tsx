@@ -1,5 +1,11 @@
 import React, { FunctionComponent } from "react";
-import Info1 from "./info/Info1";
+import Info1                        from "./info/Info1";
+import Info2                        from './info/Info2'
+import Info3                        from './info/Info3'
+import Info4                        from './info/Info4'
+import Info5                        from './info/Info5'
+import Info6                        from './info/Info6'
+import Info7                        from './info/Info7'
 
 interface Props {
     page: number;
@@ -7,7 +13,7 @@ interface Props {
     handleModalClose: () => void;
 }
 
-const InfoPages = [<Info1 />];
+const InfoPages = [<Info1 />, <Info2/>, <Info3/>, <Info4/>, <Info5/>, <Info6/>, <Info7/>];
 
 const Modal: FunctionComponent<Props> = ({
     page,

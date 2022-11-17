@@ -31,8 +31,8 @@ const formValues: Form[] = [
         ]
     },
     { displayValue: 'Contact Number (daytime)', formValue: 'Phone daytime 1', type: 'input' },
-    { displayValue: 'Mobile', formValue: 'Mobile_1', type: 'input' },
-    { displayValue: 'Email', formValue: 'Email_3 ', type: 'input', validation: 'email' },
+    { displayValue: 'Mobile', formValue: 'Mobile phone', type: 'input' },
+    { displayValue: 'Email', formValue: 'Email_3', type: 'input', validation: 'email' },
     { displayValue: 'Postal address', formValue: 'Postal Address 1', type: 'input' },
     {
         displayValue: 'Other contact details (e.g., fax or international address)',
@@ -41,7 +41,7 @@ const formValues: Form[] = [
     },
     {
         displayValue: 'Have you contacted the OAIC before about this matter and received a reference number? Please enter it here.',
-        formValue   : 'reference_number',
+        formValue   : 'reference number',
         type        : 'input'
     },
     {
@@ -82,14 +82,19 @@ const formValues: Form[] = [
         ],
         if          : { formValue: 'behalf', type: 'Yes' }
     },
-    { displayValue: 'Representative Contact Number (daytime)', formValue: 'rep_phone', type: 'input' },
-    { displayValue: 'Mobile', formValue: 'rep_mobile', type: 'input' },
-    { displayValue: 'Email', formValue: 'rep_email', type: 'input', validation: 'email' },
-    { displayValue: 'Postal address', formValue: 'Postal Address 1_2', type: 'input' },
+    { displayValue: 'Representative Contact Number (daytime)', formValue: 'rep_phone', type: 'input',
+        if          : { formValue: 'behalf', type: 'Yes' } },
+    { displayValue: 'Mobile', formValue: 'rep_mobile', type: 'input',
+        if          : { formValue: 'behalf', type: 'Yes' } },
+    { displayValue: 'Email', formValue: 'rep_email', type: 'input', validation: 'email',
+        if          : { formValue: 'behalf', type: 'Yes' } },
+    { displayValue: 'Postal address', formValue: 'Postal Address 1_2', type: 'input',
+        if          : { formValue: 'behalf', type: 'Yes' } },
     {
         displayValue: 'Other contact details (e.g., fax or international address)',
         formValue   : 'Other contact details eg Fax or international address',
-        type        : 'input'
+        type        : 'input',
+        if          : { formValue: 'behalf', type: 'Yes' }
     },
     {
         displayValue: 'Agency or Minister Information',
@@ -245,7 +250,7 @@ const CthReviewForm: FunctionComponent<Props> = ({ data }) => {
     const completedFormText = () => {
         return <p className={formTextCss}>
             A completed FOI review request form has been generated. Please sign it, attach any relevant payment
-            information, and email it to <a href={'mailto:foifr@oaic.gov.au'}>foifr@oaic.gov.au</a>
+            information, and email it to <a className="transition duration-500 italic text-blue-500 hover:text-gray-400 hover:underline hover:decoration-2 hover:decoration-blue-500 hover:cursor-pointer" href={'mailto:foifr@oaic.gov.au'}>foifr@oaic.gov.au</a>
         </p>
     }
 
@@ -257,25 +262,25 @@ const CthReviewForm: FunctionComponent<Props> = ({ data }) => {
                     <h1 className={headerTextCss}>Review an FOI request - Commonwealth </h1>
                 </div>
                 <div className="py-10 space-y-6">
-                    <p>
+                    <p className={'text-black'}>
                         Use this form if you want the outcome of your Freedom of Information (FOI) request to be
                         reviewed in the Commonwealth under s 93A of the
-                        <i> Freedom of Information Act 1982 (Cth)</i> by the Office of the Australian Information
+                        <i> Freedom of Information Act 1982 </i>(Cth) by the Office of the Australian Information
                         Commissioner.
                     </p>
-                    <p>
+                    <p className={'text-black'}>
                         In an OAIC review, the Information Commissioner (IC) will conduct a merit review (e.g., look at
                         your request and reconsiders it and
                         determine what the correct decision should have been.
                     </p>
-                    <p>
+                    <p className={'text-black'}>
                         If your application was <b>denied</b>, you have <b>60 days</b> from the time you received the
                         outcome of your review to file a request with the IPC.
                     </p>
-                    <p>
+                    <p className={'text-black'}>
                         If your application was <b>partially allowed</b>, you have <b>30 days</b> to apply for a review.
                     </p>
-                    <p>
+                    <p className={'text-black'}>
                         An OAIC review is <i>free</i>.
                     </p>
                 </div>

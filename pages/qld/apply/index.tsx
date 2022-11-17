@@ -33,7 +33,7 @@ const formValues: Form[] = [
     },
     {
         displayValue: 'Last Name',
-        formValue   : 'last-name',
+        formValue   : 'family-name',
         type        : 'input'
     },
     {
@@ -60,7 +60,7 @@ const formValues: Form[] = [
         ]
     },
     {
-        displayValue: 'Contact method',
+        displayValue: 'Contact details',
         formValue   : 'contact-method',
         type        : 'input'
     },
@@ -69,13 +69,16 @@ const formValues: Form[] = [
         formValue   : 'app-type',
         type        : 'dropdown',
         options     : [
-            { formValue     : 'a',
+            {
+                formValue   : 'a',
                 displayValue: 'All of the documents I’m applying for contain my personal information OR I’m seeking access on someone else’s behalf, and all the documents contain that person’s personal information'
             },
-            { formValue     : 'b',
+            {
+                formValue   : 'b',
                 displayValue: 'Some of the documents I’m applying for do not contain my personal information OR I’m seeking access on someone else’s behalf, and some of the documents do not contain that person’s personal information'
             },
-            { formValue     : 'c',
+            {
+                formValue   : 'c',
                 displayValue: 'None of the documents I’m applying for contain my personal information OR I’m seeking access on someone else’s behalf, and none of the documents contain that person’s personal information'
             }
         ]
@@ -113,12 +116,14 @@ const formValues: Form[] = [
     {
         displayValue: 'Applicant\'s Given Name',
         formValue   : 'app_given',
-        type        : 'input'
+        type        : 'input',
+        if          : { formValue: 'rep', type: 'behalf_yes' }
     },
     {
         displayValue: 'Applicant\'s Last Name',
         formValue   : 'app_last',
-        type        : 'input'
+        type        : 'input',
+        if          : { formValue: 'rep', type: 'behalf_yes' }
     },
     {
         displayValue: 'Are you seeking access for the use or benefit of another person, company or body?',
@@ -158,26 +163,28 @@ const formValues: Form[] = [
         type        : 'header'
     },
     {
-        displayValue: 'What is the subject matter of the documents you are seeking?', formValue: 'request_details', type: 'textarea',
+        displayValue: 'What is the subject matter of the documents you are seeking?',
+        formValue   : 'request_details',
+        type        : 'textarea',
         caption     : 'Please provide as much information as possible.'
     },
     {
         displayValue: 'What are the type of documents?',
-        caption: 'e.g., email, memos, etc',
+        caption     : 'e.g., email, memos, etc',
         formValue   : 'type_documents',
         type        : 'input'
-    },{
+    }, {
         displayValue: 'What is the date range you want us to search between?',
-        caption: 'The more specific the better - if a range is too large, your request may be denied for being too time consuming.',
+        caption     : 'The more specific the better - if a range is too large, your request may be denied for being too time consuming.',
         formValue   : 'time_period',
         type        : 'input'
-    },{
+    }, {
         displayValue: 'Where do you think the documents are located?',
         formValue   : 'doc_location',
         type        : 'input'
-    },{
+    }, {
         displayValue: 'Do you have any extra information?',
-        caption: 'Please provide as much information as possible',
+        caption     : 'Please provide as much information as possible',
         formValue   : 'extra_info',
         type        : 'input'
     },
@@ -275,20 +282,25 @@ const QldApplyForm: FunctionComponent<Props> = ({ data }) => {
                     <h1 className={headerTextCss}>Make an FOI request in Queensland</h1>
                 </div>
                 <div className="py-10 space-y-6">
-                    <p>
+                    <p className={'text-black'}>
                         Use this form if you want to make a Freedom of Information (FOI) request in Queensland under the
-                        <i> Right to Information Act 2009</i>.
+                        <i> Right to Information Act 2009</i> (Qld).
                     </p>
-                    <p>
-                        After completing this form, a PDF file will be generated which can be submitted to the agency in question.
+                    <p className={'text-black'}>
+                        After completing this form, a PDF file will be generated which can be submitted to the agency in
+                        question.
                     </p>
-                    <p>
-                        The agency has 25 business days to process your request. If your request is not processed within this time frame, or your request is denied, you may be able to file a
-                        review request.
+                    <p className={'text-black'}>
+                        The agency has 25 business days to process your request. If your request is not processed within
+                        this time frame, or your request is denied, you may be able to file a
+                        review request. For more information, see <a
+                        className={'transition duration-500 italic text-blue-500 hover:text-gray-400 hover:underline hover:decoration-2 hover:decoration-blue-500 hover:cursor-pointer'}
+                        href={'/qld/review'}>here</a>.
                     </p>
                 </div>
                 {
-                    downloadUrl && pdfFile ? <PdfViewer pdfDownloadUrl={downloadUrl} pdfFile={pdfFile} completedFormText={completedFormText}/> :
+                    downloadUrl && pdfFile ? <PdfViewer pdfDownloadUrl={downloadUrl} pdfFile={pdfFile}
+                                                        completedFormText={completedFormText}/> :
                     <FOIForm
                         formValues={formValues}
                         handleOnSubmit={handleSubmit}/>
