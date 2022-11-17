@@ -50,7 +50,7 @@ const Info3: FunctionComponent<{}> = () => {
                     </li>
                     <li>
                         <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                            Queensland &mdash;
+                            Queensland &mdash;{" "}
                             <span
                                 onClick={() =>
                                     window.open(
