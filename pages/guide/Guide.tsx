@@ -228,14 +228,14 @@ const Guide: FunctionComponent<Props> = ({}) => {
     const handleModalClose = () => setModalOpen(false);
 
     return (
-        <div className="h-screen flex place-content-center">
+        <div className="h-screen flex flex-col place-content-center">
             {ineligible > 0 ||
             !(
                 (formState.jurisdiction === "CTH" && formState.page > 7) ||
                 (formState.jurisdiction !== "CTH" && formState.page > 5)
             ) ? (
                 <>
-                    <div className="w-full mx-8 my-48 place-content-center">
+                    <div className="w-full mb-48 place-content-center">
                         <Question
                             question={
                                 formState.page > ineligible &&
@@ -344,10 +344,22 @@ const Guide: FunctionComponent<Props> = ({}) => {
                         modalOpen={modalOpen}
                         handleModalClose={handleModalClose}
                     />
+
                 </>
             ) : (
-                <Lottie animationData={animation} className="my-64 h-72 w-72" />
+                <div className={"flex flex-col items-center mb-48"}>
+                    <Lottie animationData={animation} className="h-72 w-72" />
+                </div>
             )}
+            <div className={"flex flex-col items-center mb-5"}>
+                <p className={"font-inter text-white"}>
+                    <i>
+                        FreeTheInformation does not claim to provide legal
+                        advice, and it is not intended to be a substitute for
+                        legal advice.
+                    </i>
+                </p>
+            </div>
         </div>
     );
 };

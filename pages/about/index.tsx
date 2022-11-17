@@ -132,7 +132,7 @@ export default function About() {
                     <p className={"font-inter text-black"}>
                         <i>
                             FreeTheInformation does not claim to provide legal
-                            advice, are not intended to be a substitute for
+                            advice, and it is not intended to be a substitute for
                             legal advice.
                         </i>
                     </p>
