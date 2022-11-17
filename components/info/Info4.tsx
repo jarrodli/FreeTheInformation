@@ -4,8 +4,9 @@ const Info4: FunctionComponent<{}> = () => {
     return (
         <div className="p-6 space-y-6">
             <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                If the information you are looking for is historic government information, your request will likely not be allowed.
-                FOI requests do not apply to historical information.
+                If the information you are looking for is historic government
+                information, your request will likely not be allowed. FOI
+                requests do not apply to historical information.
             </p>
             <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                 The sections that apply in each jurisdiction are:
@@ -23,9 +24,9 @@ const Info4: FunctionComponent<{}> = () => {
                                 }
                                 className="transition duration-500 italic text-blue-500 hover:text-gray-400 hover:underline hover:decoration-2 hover:decoration-blue-500 hover:cursor-pointer"
                             >
-                               s 12(1)(a) Freedom of Information Act 1982
+                                Freedom of Information Act 1982
                             </span>{" "}
-                            (Cth)
+                            (Cth) s 12(1)(a)
                         </p>
                     </li>
                     <li>
@@ -39,14 +40,14 @@ const Info4: FunctionComponent<{}> = () => {
                                 }
                                 className="transition duration-500 italic text-blue-500 hover:text-gray-400 hover:underline hover:decoration-2 hover:decoration-blue-500 hover:cursor-pointer"
                             >
-                               s 13 Government Information (Public Access) Act 2009
+                                Government Information (Public Access) Act 2009
                             </span>{" "}
-                            (NSW)
+                            (NSW) s 13
                         </p>
                     </li>
                     <li>
                         <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                            Queensland &mdash;
+                            Queensland &mdash;{" "}
                             <span
                                 onClick={() =>
                                     window.open(
@@ -55,15 +56,16 @@ const Info4: FunctionComponent<{}> = () => {
                                 }
                                 className="transition duration-500 italic text-blue-500 hover:text-gray-400 hover:underline hover:decoration-2 hover:decoration-blue-500 hover:cursor-pointer"
                             >
-                               s 180 Right to Information Act 2009
+                                Right to Information Act 2009
                             </span>{" "}
-                            (Qld)
+                            (Qld) s 180
                         </p>
                     </li>
                 </ul>
             </div>
             <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                To check if your information could be historical in nature, try the following sites:
+                To check if your information could be historical in nature, try
+                the following sites:
             </p>
             <div className="px-12">
                 <ul className="list-disc">
@@ -72,13 +74,11 @@ const Info4: FunctionComponent<{}> = () => {
                             Commonwealth &mdash;{" "}
                             <span
                                 onClick={() =>
-                                    window.open(
-                                        "https://www.naa.gov.au/"
-                                    )
+                                    window.open("https://www.naa.gov.au/")
                                 }
-                                className="transition duration-500 italic text-blue-500 hover:text-gray-400 hover:underline hover:decoration-2 hover:decoration-blue-500 hover:cursor-pointer"
+                                className="transition duration-500 text-blue-500 hover:text-gray-400 hover:underline hover:decoration-2 hover:decoration-blue-500 hover:cursor-pointer"
                             >
-                                www.naa.gov.au/
+                                naa.gov.au/
                             </span>
                         </p>
                     </li>
@@ -91,9 +91,9 @@ const Info4: FunctionComponent<{}> = () => {
                                         "https://www.records.nsw.gov.au/"
                                     )
                                 }
-                                className="transition duration-500 italic text-blue-500 hover:text-gray-400 hover:underline hover:decoration-2 hover:decoration-blue-500 hover:cursor-pointer"
+                                className="transition duration-500 text-blue-500 hover:text-gray-400 hover:underline hover:decoration-2 hover:decoration-blue-500 hover:cursor-pointer"
                             >
-                               www.records.nsw.gov.au/
+                                records.nsw.gov.au/
                             </span>
                         </p>
                     </li>
@@ -106,9 +106,9 @@ const Info4: FunctionComponent<{}> = () => {
                                         "https://www.qld.gov.au/recreation/arts/heritage/archives"
                                     )
                                 }
-                                className="transition duration-500 italic text-blue-500 hover:text-gray-400 hover:underline hover:decoration-2 hover:decoration-blue-500 hover:cursor-pointer"
+                                className="transition duration-500 text-blue-500 hover:text-gray-400 hover:underline hover:decoration-2 hover:decoration-blue-500 hover:cursor-pointer"
                             >
-                               www.qld.gov.au/recreation/arts/heritage/archives
+                                qld.gov.au/recreation/arts/heritage/archives/
                             </span>
                         </p>
                     </li>

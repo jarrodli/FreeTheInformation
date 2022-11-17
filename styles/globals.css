@@ -28,6 +28,10 @@ a {
   }
 }
 
+::selection {
+  background: #FCF1DD;
+}
+
 /* FONTS */
 @font-face {
   font-family: "Inter";

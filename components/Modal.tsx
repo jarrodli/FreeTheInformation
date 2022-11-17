@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from "react";
-import Info1                        from "./info/Info1";
-import Info2                        from './info/Info2'
-import Info3                        from './info/Info3'
-import Info4                        from './info/Info4'
-import Info5                        from './info/Info5'
-import Info6                        from './info/Info6'
-import Info7                        from './info/Info7'
+import Info1 from "./info/Info1";
+import Info2 from "./info/Info2";
+import Info3 from "./info/Info3";
+import Info4 from "./info/Info4";
+import Info5 from "./info/Info5";
+import Info6 from "./info/Info6";
+import Info7 from "./info/Info7";
 
 interface Props {
     page: number;
@@ -13,7 +13,15 @@ interface Props {
     handleModalClose: () => void;
 }
 
-const InfoPages = [<Info1 />, <Info2/>, <Info3/>, <Info4/>, <Info5/>, <Info6/>, <Info7/>];
+const InfoPages = [
+    <Info1 />,
+    <Info2 />,
+    <Info3 />,
+    <Info4 />,
+    <Info5 />,
+    <Info6 />,
+    <Info7 />,
+];
 
 const Modal: FunctionComponent<Props> = ({
     page,
@@ -39,15 +47,14 @@ const Modal: FunctionComponent<Props> = ({
                             className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                         >
                             <svg
-                                aria-hidden="true"
                                 className="w-5 h-5"
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
                             >
                                 <path
-                                    fill-rule="evenodd"
+                                    fillRule="evenodd"
                                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                    clip-rule="evenodd"
+                                    clipRule="evenodd"
                                 ></path>
                             </svg>
                             <span className="sr-only">Close modal</span>

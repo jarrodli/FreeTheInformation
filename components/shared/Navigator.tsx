@@ -29,14 +29,17 @@ const Navigator: FunctionComponent<Props> = ({
                 onClick={() => handleSetPage(formState.page + 1)}
                 disabled={
                     (!formState.jurisdiction && formState.page === 1) ||
-                    (formState.deniedOrDelayed < 0 && formState.page === 2) ||
-                    (formState.publiclyAvailable < 0 && formState.page === 3) ||
-                    (formState.historicInformation < 0 &&
+                    (formState.deniedOrDelayed.status < 0 &&
+                        formState.page === 2) ||
+                    (formState.publiclyAvailable.status < 0 &&
+                        formState.page === 3) ||
+                    (formState.historicInformation.status < 0 &&
                         formState.page === 4) ||
-                    (formState.fullExemptDocument < 0 &&
+                    (formState.fullExemptDocument.status < 0 &&
                         formState.page === 5) ||
-                    (formState.exemptAgency < 0 && formState.page === 6) ||
-                    (formState.conditionallyExemptDocument < 0 &&
+                    (formState.exemptAgency.status < 0 &&
+                        formState.page === 6) ||
+                    (formState.conditionallyExemptDocument.status < 0 &&
                         formState.page === 7)
                 }
                 className={`${buttonCss} bg-arrowRight`}

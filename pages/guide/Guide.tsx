@@ -1,6 +1,6 @@
 import Lottie from "lottie-react";
 import { useRouter } from "next/router";
-import React, { FunctionComponent, use, useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import Ineligible from "../../components/Ineligible";
 import Modal from "../../components/Modal";
 import Navigator from "../../components/shared/Navigator";
@@ -21,15 +21,20 @@ export const textCss = `text-xl md:text-2xl px-8 p-4 hover:bg-gray-100 hover:tex
 
 interface Props {}
 
+type Options = {
+    status: number;
+    page: number;
+};
+
 export type State = {
     jurisdiction: string;
     page: number;
-    deniedOrDelayed: number;
-    publiclyAvailable: number;
-    historicInformation: number;
-    fullExemptDocument: number;
-    conditionallyExemptDocument: number;
-    exemptAgency: number;
+    deniedOrDelayed: Options;
+    publiclyAvailable: Options;
+    historicInformation: Options;
+    fullExemptDocument: Options;
+    conditionallyExemptDocument: Options;
+    exemptAgency: Options;
 };
 
 const Questions = [
@@ -44,15 +49,33 @@ const Questions = [
     "Are you requesting a conditionally exempt document?",
 ];
 
-const defaultState = {
+const defaultState: State = {
     jurisdiction: "",
     page: 1,
-    deniedOrDelayed: -1,
-    publiclyAvailable: -1,
-    historicInformation: -1,
-    fullExemptDocument: -1,
-    conditionallyExemptDocument: -1,
-    exemptAgency: -1,
+    deniedOrDelayed: {
+        status: -1,
+        page: 2,
+    },
+    publiclyAvailable: {
+        status: -1,
+        page: 3,
+    },
+    historicInformation: {
+        status: -1,
+        page: 4,
+    },
+    fullExemptDocument: {
+        status: -1,
+        page: 5,
+    },
+    conditionallyExemptDocument: {
+        status: -1,
+        page: 6,
+    },
+    exemptAgency: {
+        status: -1,
+        page: 7,
+    },
 };
 
 const Guide: FunctionComponent<Props> = ({}) => {
@@ -92,23 +115,38 @@ const Guide: FunctionComponent<Props> = ({}) => {
     };
 
     const checkEligibility = (oldPage: number, newPage: number) => {
-        if (
-            ineligible === 0 &&
-            (formState.conditionallyExemptDocument === 0 ||
-                formState.deniedOrDelayed === 0 ||
-                formState.exemptAgency === 0 ||
-                formState.fullExemptDocument === 0 ||
-                formState.historicInformation === 0 ||
-                formState.publiclyAvailable === 0)
-        ) {
-            console.log(`ineleg ${oldPage}`);
-            setIneligible(oldPage);
-        } else if (ineligible > 0) {
-            setIneligible(0);
+        let eligibilityChanged = false;
+        console.log(formState);
+        let determinedEligibility = ineligible;
+
+        Object.values(formState).forEach((v) => {
+            const pivot: Options = v as Options;
+            if (pivot.page === determinedEligibility && pivot.status !== 0) {
+                determinedEligibility = 0;
+            }
+        });
+
+        Object.values(formState).forEach((v) => {
+            const pivot: Options = v as Options;
+            if (
+                (determinedEligibility === 0 ||
+                    pivot.page <= determinedEligibility) &&
+                pivot.status === 0
+            ) {
+                eligibilityChanged = true;
+                determinedEligibility = pivot.page;
+            }
+        });
+
+        if (!eligibilityChanged && ineligible > 0) {
+            determinedEligibility = 0;
         } else {
             progressToForm(newPage);
         }
+        setIneligible(determinedEligibility);
     };
+
+    useEffect(() => console.log(ineligible), [ineligible]);
 
     const handleSetPage = (newPage: number) => {
         const stateCpy = { ...formState };
@@ -121,37 +159,37 @@ const Guide: FunctionComponent<Props> = ({}) => {
 
     const handleSetDeniedOrDelayed = (newStatus: number) => {
         const stateCpy = { ...formState };
-        stateCpy.deniedOrDelayed = newStatus;
+        stateCpy.deniedOrDelayed.status = newStatus;
         setFormState(stateCpy);
     };
 
     const handleSetPubliclyAvailable = (newStatus: number) => {
         const stateCpy = { ...formState };
-        stateCpy.publiclyAvailable = newStatus;
+        stateCpy.publiclyAvailable.status = newStatus;
         setFormState(stateCpy);
     };
 
     const handleSetHistoricDocument = (newStatus: number) => {
         const stateCpy = { ...formState };
-        stateCpy.historicInformation = newStatus;
+        stateCpy.historicInformation.status = newStatus;
         setFormState(stateCpy);
     };
 
     const handleSetFullExemptDocument = (newStatus: number) => {
         const stateCpy = { ...formState };
-        stateCpy.fullExemptDocument = newStatus;
+        stateCpy.fullExemptDocument.status = newStatus;
         setFormState(stateCpy);
     };
 
     const handleSetConditionallyExemptDocument = (newStatus: number) => {
         const stateCpy = { ...formState };
-        stateCpy.conditionallyExemptDocument = newStatus;
+        stateCpy.conditionallyExemptDocument.status = newStatus;
         setFormState(stateCpy);
     };
 
     const handleSetExemptAgency = (newStatus: number) => {
         const stateCpy = { ...formState };
-        stateCpy.exemptAgency = newStatus;
+        stateCpy.exemptAgency.status = newStatus;
         setFormState(stateCpy);
     };
 
@@ -195,14 +233,18 @@ const Guide: FunctionComponent<Props> = ({}) => {
                             />
                         ) : formState.page === 2 ? (
                             <Step2
-                                deniedOrDelayed={formState.deniedOrDelayed}
+                                deniedOrDelayed={
+                                    formState.deniedOrDelayed.status
+                                }
                                 handleSetDeniedOrDelayed={
                                     handleSetDeniedOrDelayed
                                 }
                             />
                         ) : formState.page === 3 ? (
                             <Step3
-                                publiclyAvailable={formState.publiclyAvailable}
+                                publiclyAvailable={
+                                    formState.publiclyAvailable.status
+                                }
                                 handleSetPubliclyAvailable={
                                     handleSetPubliclyAvailable
                                 }
@@ -210,7 +252,7 @@ const Guide: FunctionComponent<Props> = ({}) => {
                         ) : formState.page === 4 ? (
                             <Step4
                                 historicInformation={
-                                    formState.historicInformation
+                                    formState.historicInformation.status
                                 }
                                 handleSetHistoricDocument={
                                     handleSetHistoricDocument
@@ -219,7 +261,7 @@ const Guide: FunctionComponent<Props> = ({}) => {
                         ) : formState.page === 5 ? (
                             <Step5
                                 fullExemptDocument={
-                                    formState.fullExemptDocument
+                                    formState.fullExemptDocument.status
                                 }
                                 handleSetFullExemptDocument={
                                     handleSetFullExemptDocument
@@ -227,20 +269,20 @@ const Guide: FunctionComponent<Props> = ({}) => {
                             />
                         ) : formState.page === 6 ? (
                             <Step6
-                                exemptAgency={formState.exemptAgency}
+                                exemptAgency={formState.exemptAgency.status}
                                 handleSetExemptAgency={handleSetExemptAgency}
                             />
                         ) : formState.page === 7 ? (
                             <Step7
                                 conditionallyExemptDocument={
-                                    formState.conditionallyExemptDocument
+                                    formState.conditionallyExemptDocument.status
                                 }
                                 handleSetConditionallyExemptDocument={
                                     handleSetConditionallyExemptDocument
                                 }
                             />
                         ) : null}
-                        {(formState.page < ineligible || ineligible === 0) && (
+                        {(formState.page <= ineligible || ineligible === 0) && (
                             <Navigator
                                 formState={formState}
                                 handleSetPage={handleSetPage}
