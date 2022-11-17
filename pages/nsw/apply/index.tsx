@@ -165,24 +165,24 @@ export const formValues: Form[] = [
         options     : [//FROM Shoebridge v Forestry Corporation [2016]
             // NSWCATAD 93 (Shoebridge) at 23
             {
-                formValue   : 'My application refers to public health and safety;\n',
-                displayValue: 'My application refers to public health and safety;\n'
+                formValue   : 'My application refers to public health and safety',
+                displayValue: 'My application refers to public health and safety'
             },
             {
-                formValue   : 'My application refers to the use of public funds;\n',
-                displayValue: 'My application refers to the use of public funds;\n'
+                formValue   : 'My application refers to the use of public funds',
+                displayValue: 'My application refers to the use of public funds'
             },
             {
-                formValue   : 'My application seeks to examine proper record keeping and legislative compliance generally by the agency in the exercise of its functions;\n',
-                displayValue: 'My application seeks to examine proper record keeping and legislative compliance generally by the agency in the exercise of its functions;\n'
+                formValue   : 'My application seeks to examine proper record keeping and legislative compliance generally by the agency in the exercise of its functions',
+                displayValue: 'My application seeks to examine proper record keeping and legislative compliance generally by the agency in the exercise of its functions'
             },
             {
-                formValue   : 'My application seeks to examine the existence of a special interest group and the benefits of accountability and transparency of decision-making by government, in particular Members of Parliament; and\n',
-                displayValue: 'My application seeks to examine the existence of a special interest group and the benefits of accountability and transparency of decision-making by government, in particular Members of Parliament; and\n'
+                formValue   : 'My application seeks to examine the existence of a special interest group and the benefits of accountability and transparency of decision-making by government, in particular Members of Parliament',
+                displayValue: 'My application seeks to examine the existence of a special interest group and the benefits of accountability and transparency of decision-making by government, in particular Members of Parliament'
             },
             {
-                formValue   : 'My application seeks to examine the need to ensure that citizens have sufficient information to enable them to actively participate and contribute to consideration of relevant issues through submissions or enquiry.',
-                displayValue: 'My application seeks to examine the need to ensure that citizens have sufficient information to enable them to actively participate and contribute to consideration of relevant issues through submissions or enquiry.'
+                formValue   : 'My application seeks to examine the need to ensure that citizens have sufficient information to enable them to actively participate and contribute to consideration of relevant issues through submissions or enquiry',
+                displayValue: 'My application seeks to examine the need to ensure that citizens have sufficient information to enable them to actively participate and contribute to consideration of relevant issues through submissions or enquiry'
             },
             {
                 formValue   : 'Other',

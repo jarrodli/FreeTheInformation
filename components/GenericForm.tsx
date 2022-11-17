@@ -18,7 +18,7 @@ export const captionTextCss = "text-sm md:text-md font-normal py-4 text-black";
 
 const FOIForm: FunctionComponent<Props> = ({ formValues, handleOnSubmit }) => {
     const initialValues = formValues.map((val) => {
-        return { [val.formValue]: "" };
+        return { [val.formValue]: val.options ? val.options[0].formValue : "" };
     });
     return (
         <Formik
