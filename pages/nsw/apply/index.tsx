@@ -71,14 +71,7 @@ export const formValues: Form[] = [
         type: "input",
     },
     {
-        displayValue: "What information are you looking for?",
-        formValue: "Application 1",
-        type: "textarea",
-        caption:
-            "Please provide as much information as possible. This includes things like date ranges, where the documents may be held or the subject matter the documents relate to.",
-    },
-    {
-        displayValue: "You are required to provide some proof of identity.",
+        displayValue: "What proof of identity will you attach to your application?",
         formValue: "Proof of Identity",
         type: "dropdown",
         options: [
@@ -105,7 +98,7 @@ export const formValues: Form[] = [
     },
     {
         displayValue: "What information are you looking for?",
-        formValue: "Application",
+        formValue: "Application 1",
         type: "textarea",
         caption:
             "Please provide as much information as possible. This includes things like date ranges, where the documents may be held or the subject matter the documents relate to.",
