@@ -10,7 +10,7 @@ const Info6: FunctionComponent<{}> = () => {
                 interest.
             </p>
             <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                The sections that apply in each the Commonwealth are:
+                The section that applies in the Commonwealth is:
             </p>
             <div className="px-12">
                 <ul className="list-disc">
