@@ -27,3 +27,51 @@ a {
     background: black;
   }
 }
+
+::selection {
+  background: #FCF1DD;
+}
+
+/* FONTS */
+@font-face {
+  font-family: "Inter";
+  src: local("Inter"), url(./fonts/inter_web/Inter-Regular.woff2);
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: italic;
+  src: local("Inter"), url(./fonts/inter_web/Inter-Italic.woff2);
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: bold;
+  src: local("Inter"), url(./fonts/inter_web/Inter-Bold.woff2);
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: bold;
+  font-style: italic;
+  src: local("Inter"), url(./fonts/inter_web/Inter-BoldItalic.woff2);
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: medium;
+  src: local("Inter"), url(./fonts/inter_web/Inter-Medium.woff2);
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: medium;
+  font-style: italic;
+  src: local("Inter"), url(./fonts/inter_web/Inter-MediumItalic.woff2);
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 900;
+  src: local("Inter"), url(./fonts/inter_web/Inter-Black.woff2);
+}
