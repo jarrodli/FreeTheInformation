@@ -18,7 +18,8 @@ const qldNavigation = [
 
 const nav = [
     { name: 'Home', href: '/' },
-    { name: 'About us', href: '/about' }
+    { name: 'About us', href: '/about' },
+    { name: 'Code', href: 'https://github.com/jarrodli/FreeTheInformation'}
 ]
 
 function classNames(...classes: string[]) {
@@ -45,10 +46,6 @@ const Header = () => {
                                 </a>)
                             })
                         }
-                    </div>
-                    <div>
-                        <Image onClick={() => window.location.assign('https://github.com/jarrodli/FreeTheInformation')}
-                               src={'/github.png'} alt={'go to Github'} width={32} height={32}/>
                     </div>
                 </div>
                 <div className={'flex flex-row w-screen items-center justify-end'}>
