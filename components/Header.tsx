@@ -54,7 +54,7 @@ const Header = () => {
                     </div>
                 </div>
                 <div className={"flex flex-row items-center justify-end"}>
-                    <div className="flex flex-row space-x-8 mx-4">
+                    <div className="flex flex-row space-x-8 mx-4 items-center text-center">
                         {currState === "NSW"
                             ? nswNavigation.map((link) => (
                                   <a

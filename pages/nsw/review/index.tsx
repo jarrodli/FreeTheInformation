@@ -206,7 +206,7 @@ const formValues: Form[] = [
     },
     {
         displayValue: "Please enter your name",
-        formValue: "18 Full Name",
+        formValue: "18 Full name",
         type: "input",
         if: { formValue: "ignore_survey", type: "Yes" },
     },

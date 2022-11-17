@@ -33,7 +33,7 @@ const formValues: Form[] = [
         formValue: "Phone daytime 1",
         type: "input",
     },
-    { displayValue: "Mobile", formValue: "Mobile phone", type: "input" },
+    { displayValue: "Mobile", formValue: "Mobile 1", type: "input" },
     {
         displayValue: "Email",
         formValue: "Email_3",

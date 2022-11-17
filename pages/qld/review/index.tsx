@@ -80,12 +80,12 @@ const formValues: Form[] = [
     },
     {
         displayValue: 'Do you have a disability or special need? Please indicate what assistance you require.',
-        formValue   : 'disability or other special need',
+        formValue   : 'Disability or other special need',
         type        : 'input'
     },
     {
         displayValue: 'Do you have a representative for this matter?',
-        formValue   : 'behalf',
+        formValue   : 'ignore-behalf',
         type        : 'dropdown',
         options     : [{ formValue: 'Yes', displayValue: 'Yes' }, { formValue: 'No', displayValue: 'No' }]
     },
@@ -198,38 +198,38 @@ const formValues: Form[] = [
         displayValue: 'Did you apply for an internal review of the agency or Minister\'s decision?',
         formValue   : 'int_rev',
         type        : 'dropdown',
-        options     : [{ formValue: 'int-rev-yes', displayValue: 'Yes' }, { formValue: 'int-rev-no', displayValue: 'No' }]
+        options     : [{ formValue: 'int-review-yes', displayValue: 'Yes' }, { formValue: 'int-review-no', displayValue: 'No' }]
     },
     {
         displayValue: 'When did you apply for an internal review?',
         formValue   : 'Date you applied for internal review',
         type        : 'input',
-        if          : { formValue: 'int_rev', type: 'int-rev-yes' }
+        if          : { formValue: 'int_rev', type: 'int-review-yes' }
     },
     {
         displayValue: 'Did you receive an internal review decision within the required time period?',
         caption: 'An agency has 20 business days to complete an internal review',
         formValue   : 'int_rev_decision',
         type        : 'dropdown',
-        options     : [{ formValue: 'int-rev-decision-yes', displayValue: 'Yes' }, { formValue: 'int-rev-decision-no', displayValue: 'No' }]
+        options     : [{ formValue: 'int-review-decision-yes', displayValue: 'Yes' }, { formValue: 'int-review-decision-no', displayValue: 'No' }]
     },
     {
         displayValue: 'When was the internal review decision due?',
         formValue   : 'Date internal review was due',
         type        : 'input',
-        if          : { formValue: 'int_rev_decision', type: 'int-rev-decision-no' }
+        if          : { formValue: 'int_rev_decision', type: 'int-review-decision-no' }
     },
     {
         displayValue: 'Who was the decision maker for the internal review decision?',
         formValue   : 'Agency contact - internal review',
         type        : 'input',
-        if          : { formValue: 'int_rev_decision', type: 'int-rev-decision-yes' }
+        if          : { formValue: 'int_rev_decision', type: 'int-review-decision-yes' }
     },
     {
         displayValue: 'What was the date on the internal review decision letter?',
         formValue   : 'Date internal review decision letter',
         type        : 'input',
-        if          : { formValue: 'int_rev_decision', type: 'int-rev-decision-yes' }
+        if          : { formValue: 'int_rev_decision', type: 'int-review-decision-yes' }
     },
     {
         displayValue: '3. Details about your request',
